@@ -29,7 +29,7 @@
     "@type": "Organization",
     "name": "Tissar",
     "url": "https://tissar1.github.io",
-    "logo": "https://tissar1.github.ioimages/logo.png",
+    "logo": "https://tissar1.github.io/images/logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+213-555-123-456",
@@ -1714,24 +1714,60 @@
         el.setAttribute('role', 'listitem');
         container.appendChild(el);
 
-        schemaData.itemListElement.push({
-          "@type": "ListItem",
-          "position": index + 1,
-          "item": {
+        const productItem = {
             "@type": "Product",
             "name": product.title,
             "description": product.description,
-            "image": product.image.startsWith('http') ? product.image : `https://tissar1.github.io${product.image}`,
+            "image": product.image.startsWith('http') ? product.image : `https://tissar1.github.io/${product.image}`,
             "sku": product.id,
+            "brand": { "@type": "Brand", "name": "Tissar" },
             "offers": {
               "@type": "Offer",
               "price": product.price,
               "priceCurrency": "DZD",
               "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-              "priceValidUntil": "2025-12-31",
-              "seller": { "@type": "Organization", "name": "Tissar" }
+              "priceValidUntil": "2026-12-31",
+              "seller": { "@type": "Organization", "name": "Tissar" },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "DZ",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7
+              },
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "DZD" },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 2, "unitCode": "DAY" },
+                  "transitTime": { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 5, "unitCode": "DAY" }
+                },
+                "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "DZ" }
+              }
             }
+          };
+
+          if (product.reviews && product.reviews.length > 0) {
+            const totalRating = product.reviews.reduce((sum, r) => sum + r.rating, 0);
+            productItem.aggregateRating = {
+              "@type": "AggregateRating",
+              "ratingValue": (totalRating / product.reviews.length).toFixed(1),
+              "reviewCount": product.reviews.length,
+              "bestRating": "5",
+              "worstRating": "1"
+            };
+            productItem.review = product.reviews.map(r => ({
+              "@type": "Review",
+              "author": { "@type": "Person", "name": r.name },
+              "reviewRating": { "@type": "Rating", "ratingValue": r.rating, "bestRating": "5", "worstRating": "1" },
+              "reviewBody": r.comment
+            }));
           }
+
+          schemaData.itemListElement.push({
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": productItem
         });
       });
 
