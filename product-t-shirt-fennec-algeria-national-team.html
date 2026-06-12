@@ -466,6 +466,89 @@
       flex-shrink: 0;
     }
 
+    /* Size & Color Options */
+    .option-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .option-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-600);
+      flex-shrink: 0;
+      padding-top: 10px;
+    }
+    .size-options, .color-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .size-btn {
+      min-width: 48px;
+      height: 44px;
+      padding: 0 14px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--white);
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      color: var(--gray-700);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--t-fast);
+    }
+    .size-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .size-btn.selected {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+    .size-btn.unavailable {
+      background: var(--gray-100);
+      color: var(--gray-400);
+      border-color: var(--border-2);
+      text-decoration: line-through;
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+    .color-btn {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border-2);
+      border-radius: 50%;
+      background: var(--white);
+      cursor: pointer;
+      padding: 3px;
+      transition: var(--t-fast);
+      position: relative;
+    }
+    .color-swatch {
+      display: block;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--swatch-color, #ccc);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .color-btn:hover { border-color: var(--gold); }
+    .color-btn.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+    .color-btn.unavailable {
+      cursor: not-allowed;
+      opacity: 0.35;
+    }
+    .color-btn.unavailable::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 140%; height: 1px;
+      background: #dc3545;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
     /* Quantity */
     .qty-row {
       display: flex;
@@ -1126,7 +1209,7 @@
 
       <!-- Details -->
       <div class="details-col reveal" style="transition-delay:0.1s">
-        <div class="product-eyebrow"><i class="fas fa-star"></i> clothing</div>
+        <div class="product-eyebrow"><i class="fas fa-star"></i> tshirts</div>
 
         <h1 class="product-title">
           تيشرت ALGERIA الفاخر - تصميم الفنك ومحاربي الصحراء
@@ -1151,6 +1234,24 @@
         <ul class="features-list">
           <li><i class="fas fa-check"></i> مصنوع من القطن الطبيعي 100% الثقيل والفاخر لراحة مثالية</li><li><i class="fas fa-check"></i> طبعة الفنك والنجمة والهلال عالية الدقة ومقاومة للغسيل والتشقق</li><li><i class="fas fa-check"></i> قصة عصرية ومريحة تناسب ستايل الشباب والتشجيع الرياضي</li><li><i class="fas fa-check"></i> نسيج متين جداً يحافظ على شكله وألوانه لفترة طويلة</li><li><i class="fas fa-check"></i> مثالي لمتابعة مباريات المنتخب الوطني، التجمعات، والاستخدام اليومي</li><li><i class="fas fa-check"></i> تصميم وطني فخم يجذب عشاق ومناصري كرة القدم في الجزائر</li><li><i class="fas fa-check"></i> شحن سريع وموثوق متوفر لجميع الولايات الجزائرية</li>
         </ul>
+        
+
+        
+        <div class="option-row">
+          <span class="option-label">القياس:</span>
+          <div class="size-options" id="sizeOptions">
+            <button type="button" class="size-btn" data-size="S"  onclick="selectSize(this)">S</button><button type="button" class="size-btn" data-size="M"  onclick="selectSize(this)">M</button><button type="button" class="size-btn" data-size="L"  onclick="selectSize(this)">L</button><button type="button" class="size-btn" data-size="XL"  onclick="selectSize(this)">XL</button>
+          </div>
+        </div>
+        
+
+        
+        <div class="option-row">
+          <span class="option-label">اللون:</span>
+          <div class="color-options" id="colorOptions">
+            <button type="button" class="color-btn" data-color="bleu nuit" style="--swatch-color: #191970;" title="bleu nuit"  onclick="selectColor(this)"><span class="color-swatch"></span></button><button type="button" class="color-btn unavailable" data-color="أسود" style="--swatch-color: #000000;" title="أسود" disabled onclick="selectColor(this)"><span class="color-swatch"></span></button>
+          </div>
+        </div>
         
 
         <!-- Quantity -->
@@ -1387,24 +1488,24 @@
               <div class="product-card-price">1900 دج</div>
             </div>
           </div>
-          <div class="product-card" onclick="window.location.href='product-t-shirt-normal-dz.html'">
+          <div class="product-card" onclick="window.location.href='product-t-shirt-free-palestine-premium-streetwear.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
-              <img src="images/2.webp" alt="تيشرت NORMAL DZ ستريت وير جزائري قطن عالي الجودة" loading="lazy">
+              <img src="images/16.webp" alt="تيشرت free palestine فلسطين حرة ستريت وير شبابي جزائري" loading="lazy">
             </div>
             <div class="product-card-info">
-              <h3 class="product-card-title">تيشرت NORMAL DZ الفاخر - ستريت وير جزائري</h3>
+              <h3 class="product-card-title">تيشرت فلسطين حرة Free Palestine الفاخر - ستايل ستريت وير</h3>
               <div class="product-card-price">1900 دج</div>
             </div>
           </div>
-          <div class="product-card" onclick="window.location.href='product-t-shirt-nike-premium.html'">
+          <div class="product-card" onclick="window.location.href='product-t-shirt-palm-angels-premium-oversized.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
-              <img src="images/14.webp" alt="تيشرت nike سبورت وستريت وير شبابي في الجزائر" loading="lazy">
+              <img src="images/17.webp" alt="تيشرت palm angels اوفر سايز ستريت وير شبابي جزائري" loading="lazy">
             </div>
             <div class="product-card-info">
-              <h3 class="product-card-title">تيشرت NIKE الفاخر - ستايل رياضي وعصري في الجزائر</h3>
-              <div class="product-card-price">1900 دج</div>
+              <h3 class="product-card-title">تيشرت Palm Angels الفاخر - ستايل ستريت وير عالمي في الجزائر</h3>
+              <div class="product-card-price">2500 دج</div>
             </div>
           </div>
     </div>
@@ -1482,6 +1583,8 @@
             <p class="order-price" style="color: #a07830;">السعر: 1900 دج</p>
             <div class="order-size-quantity">
               <p>الكمية: <span id="selectedQuantity">1</span></p>
+              <p>القياس: <span id="selectedSizeDisplay">-</span></p>
+              <p>اللون: <span id="selectedColorDisplay">-</span></p>
             </div>
           </div>
         </div>
@@ -1492,6 +1595,8 @@
         <input type="hidden" id="productTitle" value="تيشرت ALGERIA الفاخر - تصميم الفنك ومحاربي الصحراء">
         <input type="hidden" id="productPrice" value="1900">
         <input type="hidden" id="selectedQuantityInput" name="quantity" value="1">
+        <input type="hidden" id="selectedSizeInput" name="size" value="">
+        <input type="hidden" id="selectedColorInput" name="color" value="">
         
         <div class="form-group">
           <label for="fullName"><i class="fas fa-user"></i> الاسم الكامل *</label>
@@ -1535,8 +1640,8 @@
         </div>
         
         <div class="form-group">
-          <label for="notes"><i class="fas fa-sticky-note"></i> اللون + الحجم</label>
-          <textarea id="notes" name="notes" placeholder="اكتب اللون الذي تريده مع ذكر القياس او الحجم " rows="2"></textarea>
+          <label for="notes"><i class="fas fa-sticky-note"></i> ملاحظات</label>
+          <textarea id="notes" name="notes" placeholder="اكتب اي ملاحظة حول المنتج " rows="2"></textarea>
         </div>
         
         <div class="form-group">
@@ -2078,6 +2183,30 @@ async function saveOrderToGoogleSheets(orderData) {
     if (selectedQuantitySpan) selectedQuantitySpan.textContent = qty;
     updateOrderSummary();
   }
+
+  /* ---- Size & Color Selection ---- */
+  let selectedSize = '';
+  let selectedColor = '';
+  function selectSize(el) {
+    if (el.disabled || el.classList.contains('unavailable')) return;
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedSize = el.dataset.size;
+    const sizeInput = document.getElementById('selectedSizeInput');
+    if (sizeInput) sizeInput.value = selectedSize;
+    const sizeDisplay = document.getElementById('selectedSizeDisplay');
+    if (sizeDisplay) sizeDisplay.textContent = selectedSize;
+  }
+  function selectColor(el) {
+    if (el.disabled || el.classList.contains('unavailable')) return;
+    document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedColor = el.dataset.color;
+    const colorInput = document.getElementById('selectedColorInput');
+    if (colorInput) colorInput.value = selectedColor;
+    const colorDisplay = document.getElementById('selectedColorDisplay');
+    if (colorDisplay) colorDisplay.textContent = selectedColor;
+  }
   
   /* ---- Favourites ---- */
   const PROD_ID = 't-shirt-fennec-algeria-national-team';
@@ -2242,6 +2371,14 @@ async function saveOrderToGoogleSheets(orderData) {
           alert('عذراً، هذا المنتج غير متوفر حالياً.');
           return;
         }
+        if (document.getElementById('sizeOptions') && !selectedSize) {
+          alert('من فضلك اختر القياس قبل إتمام الطلب.');
+          return;
+        }
+        if (document.getElementById('colorOptions') && !selectedColor) {
+          alert('من فضلك اختر اللون قبل إتمام الطلب.');
+          return;
+        }
         if (orderModal) {
           orderModal.classList.add('active');
           document.body.style.overflow = 'hidden';
@@ -2308,6 +2445,8 @@ async function saveOrderToGoogleSheets(orderData) {
           commune: communeSelect?.options[communeSelect.selectedIndex]?.text || '',
           address: document.getElementById('address')?.value,
           quantity: selectedQuantityInput?.value || qty,
+          size: document.getElementById('selectedSizeInput')?.value || 'غير محدد',
+          color: document.getElementById('selectedColorInput')?.value || 'غير محدد',
           delivery: document.querySelector('input[name="delivery"]:checked')?.value || 'المنزل',
           notes: document.getElementById('notes')?.value || 'لا توجد ملاحظات',
           timestamp: new Date().toISOString(),
@@ -2335,7 +2474,7 @@ async function saveOrderToGoogleSheets(orderData) {
           const saved = await saveOrderToGoogleSheets(formData);
           const successMsg = document.getElementById('successMessage');
           if (successMsg) {
-            successMsg.textContent = `شكراً ${formData.fullName}! تم استلام طلبك بنجاح.\nالولاية: ${formData.wilaya}\nالبلدية: ${formData.commune}\nسعر المنتج: ${productTotal.toLocaleString('ar-DZ')} دج\nتكلفة التوصيل: ${deliveryCost.toLocaleString('ar-DZ')} دج\nالمجموع: ${grandTotal.toLocaleString('ar-DZ')} دج\nطريقة التوصيل: ${formData.delivery}\nسنقوم بالاتصال بك على الرقم ${formData.phone} خلال 24 ساعة لتأكيد الطلب وتفاصيل الدفع.`;
+            successMsg.textContent = `شكراً ${formData.fullName}! تم استلام طلبك بنجاح.\nالقياس: ${formData.size}\nاللون: ${formData.color}\nالولاية: ${formData.wilaya}\nالبلدية: ${formData.commune}\nسعر المنتج: ${productTotal.toLocaleString('ar-DZ')} دج\nتكلفة التوصيل: ${deliveryCost.toLocaleString('ar-DZ')} دج\nالمجموع: ${grandTotal.toLocaleString('ar-DZ')} دج\nطريقة التوصيل: ${formData.delivery}\nسنقوم بالاتصال بك على الرقم ${formData.phone} خلال 24 ساعة لتأكيد الطلب وتفاصيل الدفع.`;
           }
           if (orderModal) orderModal.classList.remove('active');
           if (successModal) successModal.classList.add('active');
@@ -2360,7 +2499,7 @@ async function saveOrderToGoogleSheets(orderData) {
           
           const successMsg = document.getElementById('successMessage');
           if (successMsg) {
-            successMsg.textContent = `شكراً ${formData.fullName}! تم حفظ طلبك محلياً.\nالولاية: ${formData.wilaya}\nالبلدية: ${formData.commune}\nسعر المنتج: ${productTotal.toLocaleString('ar-DZ')} دج\nتكلفة التوصيل: ${deliveryCost.toLocaleString('ar-DZ')} دج\nالمجموع: ${grandTotal.toLocaleString('ar-DZ')} دج\nطريقة التوصيل: ${formData.delivery}\nسنقوم بالاتصال بك قريباً.`;
+            successMsg.textContent = `شكراً ${formData.fullName}! تم حفظ طلبك محلياً.\nالقياس: ${formData.size}\nاللون: ${formData.color}\nالولاية: ${formData.wilaya}\nالبلدية: ${formData.commune}\nسعر المنتج: ${productTotal.toLocaleString('ar-DZ')} دج\nتكلفة التوصيل: ${deliveryCost.toLocaleString('ar-DZ')} دج\nالمجموع: ${grandTotal.toLocaleString('ar-DZ')} دج\nطريقة التوصيل: ${formData.delivery}\nسنقوم بالاتصال بك قريباً.`;
           }
           if (orderModal) orderModal.classList.remove('active');
           if (successModal) successModal.classList.add('active');
