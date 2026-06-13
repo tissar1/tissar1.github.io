@@ -34,7 +34,7 @@
       "@type": "Offer",
       "url": "https://Tissar1.github.io/product-t-shirt-ghost-operator.html",
       "priceCurrency": "DZD",
-      "price": "1900",
+      "price": "2800",
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/NewCondition"
     }
@@ -1219,7 +1219,7 @@
         </h1>
 
         <div class="price-row">
-          <span class="price-main">1900</span>
+          <span class="price-main">2800</span>
           <span class="price-currency">دينار جزائري</span>
         </div>
 
@@ -1583,7 +1583,7 @@
           <img src="images/19.webp" alt="تيشرت GHOST OPERATOR الفاخر - ستايل ستريت وير للجيمرز">
           <div>
             <h4 style="color: #212529;">تيشرت GHOST OPERATOR الفاخر - ستايل ستريت وير للجيمرز</h4>
-            <p class="order-price" style="color: #a07830;">السعر: 1900 دج</p>
+            <p class="order-price" style="color: #a07830;">السعر: 2800 دج</p>
             <div class="order-size-quantity">
               <p>الكمية: <span id="selectedQuantity">1</span></p>
               <p>القياس: <span id="selectedSizeDisplay">-</span></p>
@@ -1596,7 +1596,7 @@
       <form id="orderForm" class="order-form">
         <input type="hidden" id="productId" value="t-shirt-ghost-operator">
         <input type="hidden" id="productTitle" value="تيشرت GHOST OPERATOR الفاخر - ستايل ستريت وير للجيمرز">
-        <input type="hidden" id="productPrice" value="1900">
+        <input type="hidden" id="productPrice" value="2800">
         <input type="hidden" id="selectedQuantityInput" name="quantity" value="1">
         <input type="hidden" id="selectedSizeInput" name="size" value="">
         <input type="hidden" id="selectedColorInput" name="color" value="">
@@ -1664,7 +1664,7 @@
         <div class="order-total">
           <div class="total-row">
             <span>سعر المنتج:</span>
-            <span id="productTotal">1900 دج</span>
+            <span id="productTotal">2800 دج</span>
           </div>
           <div class="total-row">
             <span>تكلفة التوصيل:</span>
@@ -1672,7 +1672,7 @@
           </div>
           <div class="total-row total">
             <span>المجموع الإجمالي:</span>
-            <span id="grandTotal">1900 دج + 1000 دج</span>
+            <span id="grandTotal">2800 دج + 1000 دج</span>
           </div>
         </div>
         
@@ -2305,7 +2305,7 @@ async function saveOrderToGoogleSheets(orderData) {
     // تحديث ملخص الطلب
     function updateOrderSummary() {
       const quantity = qty;
-      const price = parseFloat(document.getElementById('productPrice')?.value || 1900);
+      const price = parseFloat(document.getElementById('productPrice')?.value || 2800);
       const productTotal = price * quantity;
       
       if (selectedQuantitySpan) selectedQuantitySpan.textContent = quantity;
@@ -2318,7 +2318,7 @@ async function saveOrderToGoogleSheets(orderData) {
     
     // تحديث السعر الإجمالي
     function updateTotalPrice() {
-      const price = parseFloat(document.getElementById('productPrice')?.value || 1900);
+      const price = parseFloat(document.getElementById('productPrice')?.value || 2800);
       const productTotal = price * qty;
       const wilayaId = parseInt(wilayaSelect?.value);
       const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value === 'المنزل' ? 0 : 1;
@@ -2440,7 +2440,7 @@ async function saveOrderToGoogleSheets(orderData) {
         const formData = {
           productId: document.getElementById('productId')?.value || 't-shirt-ghost-operator',
           productTitle: document.getElementById('productTitle')?.value || 'تيشرت GHOST OPERATOR الفاخر - ستايل ستريت وير للجيمرز',
-          productPrice: document.getElementById('productPrice')?.value || 1900,
+          productPrice: document.getElementById('productPrice')?.value || 2800,
           fullName: document.getElementById('fullName')?.value,
           phone: document.getElementById('phone')?.value,
           email: document.getElementById('email')?.value || 'غير محدد',
