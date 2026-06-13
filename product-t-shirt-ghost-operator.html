@@ -1668,11 +1668,11 @@
           </div>
           <div class="total-row">
             <span>تكلفة التوصيل:</span>
-            <span id="deliveryCost">1000 دج</span>
+            <span id="deliveryCost">200 دج</span>
           </div>
           <div class="total-row total">
             <span>المجموع الإجمالي:</span>
-            <span id="grandTotal">2800 دج + 1000 دج</span>
+            <span id="grandTotal">2800 دج + 200 دج</span>
           </div>
         </div>
         
@@ -2325,7 +2325,7 @@ async function saveOrderToGoogleSheets(orderData) {
       const productTotal = price * qty;
       const wilayaId = parseInt(wilayaSelect?.value);
       const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value === 'المنزل' ? 0 : 1;
-      const deliveryCost = wilayaId ? getDeliveryPrice(wilayaId, deliveryType) : (deliveryType === 0 ? 1000 : 700);
+      const deliveryCost = wilayaId ? getDeliveryPrice(wilayaId, deliveryType) : (deliveryType === 0 ? 200 : 0);
       const grandTotal = productTotal + deliveryCost;
       
       if (document.getElementById('deliveryCost')) {
@@ -2462,7 +2462,7 @@ async function saveOrderToGoogleSheets(orderData) {
         const productTotal = parseFloat(formData.productPrice) * parseInt(formData.quantity);
         const wilayaId = parseInt(wilayaSelect?.value);
         const deliveryType = formData.delivery === 'المنزل' ? 0 : 1;
-        const deliveryCost = wilayaId ? getDeliveryPrice(wilayaId, deliveryType) : (deliveryType === 0 ? 1000 : 700);
+        const deliveryCost = wilayaId ? getDeliveryPrice(wilayaId, deliveryType) : (deliveryType === 0 ? 200 : 0);
         const grandTotal = productTotal + deliveryCost;
         
         formData.deliveryCost = deliveryCost;
