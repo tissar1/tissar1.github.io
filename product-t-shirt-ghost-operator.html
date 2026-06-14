@@ -2407,6 +2407,12 @@ async function saveOrderToGoogleSheets(orderData) {
           orderModal.classList.add('active');
           document.body.style.overflow = 'hidden';
           updateOrderSummary();
+           // ✅ بيكسل فيسبوك - تتبع من فتح نموذج الطلب
+          fbq('track', 'InitiateCheckout', {
+            content_name: 'تيشرت GHOST OPERATOR',
+            content_ids: ['t-shirt-ghost-operator'],
+            currency: 'DZD',
+            value: 2800
         }
       });
     }
