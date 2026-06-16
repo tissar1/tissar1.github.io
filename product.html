@@ -2138,7 +2138,7 @@ async function saveOrderToGoogleSheets(orderData) {
   
   // دالة لتحديث حالة المنتج عند تحميل الصفحة
   async function updateProductStatus() {
-    const isInStock = await checkProductAvailability();
+    const isInStock = false;
     const orderBtn = document.getElementById('orderProductBtn');
     const stockPill = document.querySelector('.stock-pill');
     const galleryBadge = document.querySelector('.gallery-badge');
@@ -2366,7 +2366,7 @@ async function saveOrderToGoogleSheets(orderData) {
     // فتح نموذج الطلب
     if (orderProductBtn) {
       orderProductBtn.addEventListener('click', async function() {
-        const isInStock = await checkProductAvailability();
+        const isInStock = false;
         if (isInStock === false) {
           alert('عذراً، هذا المنتج غير متوفر حالياً.');
           return;
@@ -2428,7 +2428,7 @@ async function saveOrderToGoogleSheets(orderData) {
           return;
         }
         
-        const isInStock = await checkProductAvailability();
+        const isInStock = false;
         if (isInStock === false) {
           alert('عذراً، هذا المنتج غير متوفر حالياً. لا يمكن إرسال الطلب.');
           return;
