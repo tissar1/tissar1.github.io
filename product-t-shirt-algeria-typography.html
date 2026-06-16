@@ -1468,6 +1468,16 @@
     
     <div class="products-grid">
       
+          <div class="product-card" onclick="window.location.href='product-t-shirt-alpha-wolf-premium.html'">
+            <div class="product-card-img">
+              <span class="stock-badge in-stock">متوفر</span>
+              <img src="images/23.webp" alt="تيشرت alpha wolf ستريت وير شبابي جزائري فاخر عالي التباين" loading="lazy">
+            </div>
+            <div class="product-card-info">
+              <h3 class="product-card-title">تيشرت Alpha Wolf الفاخر - ستايل ستريت وير حاد وجريء</h3>
+              <div class="product-card-price">2400 دج</div>
+            </div>
+          </div>
           <div class="product-card" onclick="window.location.href='product-t-shirt-ghost-operator.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
@@ -1496,16 +1506,6 @@
             <div class="product-card-info">
               <h3 class="product-card-title">تيشرت Palm Angels الفاخر - ستايل ستريت وير عالمي في الجزائر</h3>
               <div class="product-card-price">2500 دج</div>
-            </div>
-          </div>
-          <div class="product-card" onclick="window.location.href='product-t-shirt-normal-dz.html'">
-            <div class="product-card-img">
-              <span class="stock-badge in-stock">متوفر</span>
-              <img src="images/2.webp" alt="تيشرت NORMAL DZ ستريت وير جزائري قطن عالي الجودة" loading="lazy">
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">تيشرت NORMAL DZ الفاخر - ستريت وير جزائري</h3>
-              <div class="product-card-price">1900 دج</div>
             </div>
           </div>
     </div>
@@ -2138,7 +2138,7 @@ async function saveOrderToGoogleSheets(orderData) {
   
   // دالة لتحديث حالة المنتج عند تحميل الصفحة
   async function updateProductStatus() {
-    const isInStock = false;
+    const isInStock = await checkProductAvailability();
     const orderBtn = document.getElementById('orderProductBtn');
     const stockPill = document.querySelector('.stock-pill');
     const galleryBadge = document.querySelector('.gallery-badge');
@@ -2315,19 +2315,20 @@ async function saveOrderToGoogleSheets(orderData) {
     
     // تحديث السعر الإجمالي
     function updateTotalPrice() {
-    const price = parseFloat(document.getElementById('productPrice')?.value || 1900);
-    const productTotal = price * qty;
-    
-    // جعل سعر التوصيل يظهر "غير متوفر"
-    if (document.getElementById('deliveryCost')) {
-        document.getElementById('deliveryCost').textContent = 'غير متوفر';
-        document.getElementById('deliveryCost').style.color = '#dc3545';
+      const price = parseFloat(document.getElementById('productPrice')?.value || 2200);
+      const productTotal = price * qty;
+      const wilayaId = parseInt(wilayaSelect?.value);
+      const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value === 'المنزل' ? 0 : 1;
+      const deliveryCost = wilayaId ? getDeliveryPrice(wilayaId, deliveryType) : (deliveryType === 0 ? 1000 : 700);
+      const grandTotal = productTotal + deliveryCost;
+      
+      if (document.getElementById('deliveryCost')) {
+        document.getElementById('deliveryCost').textContent = deliveryCost + ' دج';
+      }
+      if (document.getElementById('grandTotal')) {
+        document.getElementById('grandTotal').textContent = grandTotal + ' دج';
+      }
     }
-    if (document.getElementById('grandTotal')) {
-        document.getElementById('grandTotal').textContent = productTotal + ' دج (سعر التوصيل غير متوفر)';
-        document.getElementById('grandTotal').style.color = '#dc3545';
-    }
-}
     
     // تحديث البلديات عند تغيير الولاية
     if (wilayaSelect) {
