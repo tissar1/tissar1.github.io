@@ -2324,7 +2324,7 @@ async function saveOrderToGoogleSheets(orderData) {
         document.getElementById('deliveryCost').style.color = '#dc3545';
     }
     if (document.getElementById('grandTotal')) {
-        document.getElementById('grandTotal').textContent = productTotal + ' دج (التوصيل غير متوفر)';
+        document.getElementById('grandTotal').textContent = productTotal + ' دج (سعر التوصيل غير متوفر)';
         document.getElementById('grandTotal').style.color = '#dc3545';
     }
 }
