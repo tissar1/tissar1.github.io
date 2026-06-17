@@ -2338,20 +2338,19 @@ async function saveOrderToGoogleSheets(orderData) {
     
     // تحديث السعر الإجمالي
     function updateTotalPrice() {
-      const price = parseFloat(document.getElementById('productPrice')?.value || 2800);
-      const productTotal = price * qty;
-      const wilayaId = parseInt(wilayaSelect?.value);
-      const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value === 'المنزل' ? 0 : 1;
-      const deliveryCost = wilayaId ? getDeliveryPrice(wilayaId, deliveryType) : (deliveryType === 0 ? 200 : 0);
-      const grandTotal = productTotal + deliveryCost;
-      
-      if (document.getElementById('deliveryCost')) {
-        document.getElementById('deliveryCost').textContent = deliveryCost + ' دج';
-      }
-      if (document.getElementById('grandTotal')) {
-        document.getElementById('grandTotal').textContent = grandTotal + ' دج';
-      }
+    const price = parseFloat(document.getElementById('productPrice')?.value || 1900);
+    const productTotal = price * qty;
+    
+    // جعل سعر التوصيل يظهر "غير متوفر"
+    if (document.getElementById('deliveryCost')) {
+        document.getElementById('deliveryCost').textContent = 'غير متوفر';
+        document.getElementById('deliveryCost').style.color = '#dc3545';
     }
+    if (document.getElementById('grandTotal')) {
+        document.getElementById('grandTotal').textContent = productTotal + ' دج (التوصيل غير متوفر)';
+        document.getElementById('grandTotal').style.color = '#dc3545';
+    }
+}
     
     // تحديث البلديات عند تغيير الولاية
     if (wilayaSelect) {
