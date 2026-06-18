@@ -609,6 +609,30 @@
       cursor: pointer;
       transition: var(--t);
     }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: var(--t);
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.25);
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+      background: linear-gradient(135deg, #22c35e, #0e7a6e);
+    }
+    .btn-whatsapp i { font-size: 18px; }
+
     .btn-ghost:hover {
       background: var(--gray-100);
       border-color: var(--border);
@@ -1041,6 +1065,76 @@
     }
     .footer-bottom span { color: var(--gold); }
 
+
+    /* ============================================
+       WHATSAPP FLOAT BUTTON
+    ============================================ */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0.6);
+      z-index: 9999;
+      transition: var(--t);
+      border: none;
+      animation: whatsappPulse 2s ease-in-out infinite;
+      text-decoration: none;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 8px 32px rgba(37, 211, 102, 0.5);
+      animation: none;
+    }
+    .whatsapp-float .whatsapp-tooltip {
+      position: absolute;
+      right: 70px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--gray-800);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--t);
+      box-shadow: var(--shadow);
+    }
+    .whatsapp-float .whatsapp-tooltip::after {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 6px 6px 6px 0;
+      border-style: solid;
+      border-color: transparent var(--gray-800) transparent transparent;
+    }
+    .whatsapp-float:hover .whatsapp-tooltip {
+      opacity: 1;
+      right: 75px;
+    }
+    @keyframes whatsappPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0.6); }
+      50% { box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4), 0 0 0 12px rgba(37, 211, 102, 0); }
+    }
+    @media (max-width: 768px) {
+      .whatsapp-float { width: 54px; height: 54px; font-size: 24px; bottom: 24px; right: 24px; }
+      .whatsapp-float .whatsapp-tooltip { display: none; }
+    }
+
     /* ============================================
        SCROLL TO TOP
     ============================================ */
@@ -1273,6 +1367,9 @@
 
         <!-- Actions -->
         <div class="action-row">
+          <a href="https://wa.me/213555369459?text=مرحباً%20أريد%20الاستفسار%20عن%20منتج:%20" class="btn-whatsapp" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> استفسار عبر واتساب
+          </a>
           <button class="fav-btn" id="fav-btn" onclick="toggleFav()">
             <i class="fas fa-heart"></i> أضف للمفضلة
           </button>
@@ -1468,7 +1565,7 @@
     
     <div class="products-grid">
       
-          <div class="product-card" onclick="window.location.href='product-t-shirt-palm-angels-premium-oversized.html'">
+          <div class="product-card" onclick="window.location.href='product-t-shirt-palm-angels-oversized.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
               <img src="images/17.webp" alt="تيشرت palm angels اوفر سايز ستريت وير شبابي جزائري" loading="lazy">
@@ -1478,34 +1575,34 @@
               <div class="product-card-price">2500 دج</div>
             </div>
           </div>
-          <div class="product-card" onclick="window.location.href='product-t-shirt-free-palestine-premium-streetwear.html'">
+          <div class="product-card" onclick="window.location.href='product-t-shirt-one-piece-luffy.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
-              <img src="images/16.webp" alt="تيشرت free palestine فلسطين حرة ستريت وير شبابي جزائري" loading="lazy">
+              <img src="images/27.webp" alt="تيشرت لوفي ون بيس اوفرسايز ستريت وير جزائري فاخر" loading="lazy">
             </div>
             <div class="product-card-info">
-              <h3 class="product-card-title">تيشرت فلسطين حرة Free Palestine الفاخر - ستايل ستريت وير</h3>
-              <div class="product-card-price">1900 دج</div>
+              <h3 class="product-card-title">تيشرت مونكي دي لوفي الفاخر - ستايل ستريت وير لعشاق ون بيس</h3>
+              <div class="product-card-price">2000 دج</div>
             </div>
           </div>
-          <div class="product-card" onclick="window.location.href='product-t-shirt-yamaha-r1-premium.html'">
+          <div class="product-card" onclick="window.location.href='product-t-shirt-anime-legends.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
-              <img src="images/6.webp" alt="تيشرت yamaha r1 لعشاق الدراجات النارية الجزائر" loading="lazy">
+              <img src="images/28.webp" alt="تيشرت انمي اوفرسايز لوفي ناروتو غوكو تانجيرو ستريت وير جزائري فاخر" loading="lazy">
             </div>
             <div class="product-card-info">
-              <h3 class="product-card-title">تيشرت Yamaha R1 الفاخر - لعشاق الدراجات النارية في الجزائر</h3>
-              <div class="product-card-price">1900 دج</div>
+              <h3 class="product-card-title">تيشرت أساطير الأنمي الفاخر - ستايل ستريت وير لعشاق الأوتاكو</h3>
+              <div class="product-card-price">2000 دج</div>
             </div>
           </div>
-          <div class="product-card" onclick="window.location.href='product-t-shirt-kawasaki-ninja-zx10r-premium.html'">
+          <div class="product-card" onclick="window.location.href='product-t-shirt-alpha-wolf-premium.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
-              <img src="images/5.webp" alt="تيشرت kawasaki ninja zx10r لعشاق الدراجات النارية الجزائر" loading="lazy">
+              <img src="images/23.webp" alt="تيشرت alpha wolf ستريت وير شبابي جزائري فاخر عالي التباين" loading="lazy">
             </div>
             <div class="product-card-info">
-              <h3 class="product-card-title">تيشرت Kawasaki Ninja ZX10R الفاخر - لعشاق الموتو في الجزائر</h3>
-              <div class="product-card-price">1900 دج</div>
+              <h3 class="product-card-title">تيشرت Alpha Wolf الفاخر - ستايل ستريت وير حاد وجريء</h3>
+              <div class="product-card-price">2400 دج</div>
             </div>
           </div>
     </div>
@@ -1550,9 +1647,10 @@
         <h4>تواصل معنا</h4>
         <ul class="footer-links">
           <li><i class="fas fa-envelope"></i> support@tissar.com</li>
-          <li><i class="fas fa-phone"></i> 0555 123 456</li>
+          <li><a href="https://wa.me/213555369459" target="_blank" rel="noopener" style="color: var(--gray-600); text-decoration: none;"><i class="fas fa-phone"></i> 0555 123 456</a></li>
           <li><i class="fas fa-clock"></i> يومياً 08:00 – 22:00</li>
           <li><i class="fas fa-map-marker-alt"></i> الجزائر العاصمة</li>
+          <li><a href="https://wa.me/213555369459" target="_blank" rel="noopener" style="color: var(--gray-600); text-decoration: none;"><i class="fab fa-whatsapp" style="color: #25D366;"></i> واتساب: 0555 12 34 56</a></li>
         </ul>
       </div>
     </div>
@@ -1561,6 +1659,12 @@
     </div>
   </div>
 </footer>
+
+<!-- WhatsApp Float Button -->
+<a href="https://wa.me/213555369459?text=مرحباً%20أريد%20الاستفسار%20عن%20منتج" class="whatsapp-float" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">
+  <i class="fab fa-whatsapp"></i>
+  <span class="whatsapp-tooltip">تواصل معنا عبر واتساب</span>
+</a>
 
 <button id="scroll-top" aria-label="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
 <div class="toast" id="toast"></div>
@@ -1692,6 +1796,12 @@
     </div>
     <h3>تم إرسال طلبك بنجاح! 🎉</h3>
     <p id="successMessage">سنقوم بالاتصال بك في أقرب وقت ممكن لتأكيد الطلب.</p>
+    <a href="https://wa.me/213555369459?text=مرحباً%20لقد%20قمت%20بإرسال%20طلب%20جديد" 
+       class="btn-whatsapp" target="_blank" rel="noopener" 
+       style="display: inline-flex; margin-bottom: 15px; padding: 12px 28px; font-size: 15px;">
+      <i class="fab fa-whatsapp"></i> متابعة الطلب عبر واتساب
+    </a>
+    <br>
     <button class="btn btn-primary" id="closeSuccessModal">حسناً</button>
   </div>
 </div>
