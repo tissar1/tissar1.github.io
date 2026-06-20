@@ -1316,6 +1316,53 @@
       opacity: 1;
       transform: translateY(0);
     }
+   
+
+  img { touch-action: pan-x pan-y pinch-zoom; }
+
+  @media (hover: none) and (pointer: coarse) {
+
+    header {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(255,255,255,0.98) !important;
+    }
+
+    .announcement-bar {
+      animation: none !important;
+      background: var(--gold-dark) !important;
+    }
+
+    .orb { animation: none !important; display: none !important; }
+    .hero-eyebrow::before { animation: none !important; }
+
+    .product:hover,
+    .feature-card:hover,
+    .btn-primary:hover,
+    .btn-ghost:hover,
+    .detail-btn:hover,
+    .fav-btn:hover,
+    .nav-btn:hover,
+    .category-btn:hover,
+    .newsletter-form button:hover,
+    .social-links a:hover,
+    #scroll-top:hover {
+      transform: none !important;
+      box-shadow: inherit !important;
+    }
+
+    .product:hover .product-img img { transform: none !important; }
+    .product-quick { display: none !important; }
+    .feature-card::after { display: none !important; }
+    .btn-primary::after { display: none !important; }
+  }
+
+  @media (max-width: 768px) {
+    body::before    { display: none !important; }
+    .hero-bg        { display: none !important; }
+    .hero-grid      { display: none !important; }
+    .product, .feature-card { box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important; }
+  }
   </style>
   <!-- Meta Pixel Code -->
 <script>
