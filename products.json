@@ -22,6 +22,90 @@
       "category": "tshirts",
       "tabDescription": "تيشرت ALGERIA التيبوغرافي بجودة ممتازة. يجمع بين بساطة التصميم المعاصر ونقاء النسيج القطني الفاخر ليمثل ستايل الشارع الهادئ والمعاصر في الجزائر.",
       "backImage": "images/15.webp",
+      "image1": "images/31.webp",
+      "image2": "images/32.webp",
+      "image3": "images/33.webp",
+      "image4": "images/34.webp",
+      "image5": "images/35.webp",
+      "image6": "",
+      "image7": "",
+      "image8": "",
+      "image9": "",
+      "image10": "",
+      "image11": "",
+      "image12": "",
+      "image13": "",
+      "image14": "",
+      "image15": "",
+      "inStock": true,
+      "youtubeVideoId": "",
+      "reviews": [
+        {
+          "name": "سفيان",
+          "rating": 5,
+          "comment": "الديزاين سامبل وبزاف كلاص، والكتيبة جاية نقية. القطن تاعهوم واش نحكي لك خشين وطوب."
+        },
+        {
+          "name": "شفيق",
+          "rating": 5,
+          "comment": "يعطيكم الصحة خاوتي، خياطة متقونة وفصالة أوفرسايز هبال. التوصيل جاني رابيد للبليدة."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "S",
+          "available": true
+        },
+        {
+          "name": "M",
+          "available": true
+        },
+        {
+          "name": "L",
+          "available": true
+        },
+        {
+          "name": "XL",
+          "available": true
+        }
+      ],
+      "colors": [
+        {
+          "name": "bleu nuit",
+          "hex": "#191970",
+          "available": true
+        },
+         {
+          "name": "أسود",
+          "hex": "#000000",
+          "available": false
+        }
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 7
+    },
+{
+      "id": "t-shirt-algeria-makam-el-chahid",
+      "title": "تيشرت مقام الشهيد ALGERIA الفاخر - ستايل ستريت وير معاصر",
+      "description": "تميز بإطلالة راقية وعصرية تعبر عن الانتماء بأسلوب فني فريد مع تيشرت *ALGERIA* الحصري، والمستوحى بدقة من التصميم المعروض في الملف 1.png. يتميز هذا الموديل بطبعة غرافيكية أمامية احترافية باللون الأبيض الصافي تبرز معلم مقام الشهيد التاريخي كرمز للفخر والقوة، يعلوه الهلال والنجمة وكلمة 'ALGERIA' بخط حاد وجريء، متبوعاً بعبارة 'NORTH AFRICA' وخريطة القارة الإفريقية بلمسة فنية ممتازة تناسب الستايل الشبابي العصري. التيشرت يأتي بقصة عادية كلاسيكية (Regular Fit) مريحة ومناسبة تماماً للجسم وليس أوفر سايز، ليوفر لك مظهراً منسقاً وأنيقاً. وهو مصنوع 100% من القطن الطبيعي الصافي ذو الوزن الثقيل والممتاز لضمان الراحة التامة والتهوية المثالية طوال اليوم. الطبعة احترافية للغاية ومقاومة تماماً للتشقق أو البهتان حتى بعد مئات الغسلات. متوفر الآن بجميع المقاسات ليلائم ذوقك الرفيع.",
+      "metaDescription": "تيشرت ALGERia الجديد بتصميم مقام الشهيد والهلال والنجمة مستوحى من 1.png. قطن 100% عالي الجودة وبقصة عادية مريحة. اطلبه الآن مع شحن سريع لـ 58 ولاية.",
+      "price": "1700",
+      "currency": "DZD",
+      "image": "images/42.webp",
+      "imageAlt": "تيشرت algeria مقام الشهيد ستريت وير شبابي جزائري فاخر قصة عادية",
+      "keywords": "تيشرت algeria, تيشيرت الجزائر, algeria t-shirt dz, ملابس ستريت وير الجزائر, قميص جزائري, تيشيرت مقام الشهيد, قميص الهلال والنجمة, تيشيرت قطن فاخر, ملابس شبابية الجزائر, تيشيرت صيفي قاوي, ماركات ملابس جزائرية, تيشيرت قصة عادية, regular fit t-shirt algeria, قمصان كاجوال الجزائر, توصيل 58 ولاية, لباس عصري جزائري, ترند الجزائر",
+      "features": [
+        "مصنوع من القطن الطبيعي 100% الثقيل والفاخر لراحة واستدامة مثالية",
+        "طبعة مقام الشهيد والرموز الوطنية المستوحاة من 1.png عالية الدقة ولا تتأثر بالغسيل المتكرر",
+        "قصة عصرية تواكب آخر صيحات الموضة الشبابية",
+        "نسيج متين وألوان ثابتة تحافظ على رونقها لفترة طويلة",
+        "مثالي للخرجات اليومية، الجامعة، والتجمعات الشبابية الأنيقة",
+        "خياطة مزدوجة وتقفيل احترافي يضمن جودة تفوق السعر",
+        "شحن سريع وموثوق متوفر لجميع الولايات الجزائرية الـ 58"
+      ],
+      "category": "tshirts",
+      "tabDescription": "تيشرت ALGERIA مقام الشهيد بجودة ممتازة. يجمع بين فخامة التصميم الغرافيكي للهوية الوطنية ونقاء النسيج القطني الفاخر ليمثل ستايل الشارع المعاصر في الجزائر بامتياز.",
+      "backImage": "images/15.webp",
       "image1": "",
       "image2": "",
       "image3": "",
@@ -80,7 +164,93 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 3
+    },
+{
+      "id": "t-shirt-algeria-tuareg-sahara",
+      "title": "تيشرت الرجل التارقي ALGERIA الفاخر - ستايل ستريت وير معاصر",
+      "description": "تميز بإطلالة راقية وعصرية تعبر عن عمق الانتماء والهوية بأسلوب فني فريد مع تيشرت *ALGERIA* الحصري، والمستوحى بدقة من التصميم المعروض في الملف 2.png. يتميز هذا الموديل بطبعة غرافيكية أمامية احترافية باللون الأبيض الصافي تبرز رمزية الرجل التارقي الأصيل (لثام الصحراء) وخلفه الهلال والنجمة وشجرة النخيل، مدمجة بذكاء فوق خريطة الجزائر التي تحتضن عبارة 'NORTH AFRICA' ومعلم مقام الشهيد الصغير. الديزاين يعكس سحر الصحراء الجزائرية الكبرى ممزوجاً بلمسة شبابية حادة وجريئة تناسب الستايل المعاصر. التيشرت يأتي بقصة عادية كلاسيكية (Regular Fit) مريحة ومناسبة تماماً للجسم وليس أوفر سايز، ليوفر لك مظهراً متناسقاً وأنيقاً في كل خرجاتك. وهو مصنوع 100% من القطن الطبيعي الصافي ذو الوزن الثقيل والممتاز لضمان الراحة التامة والتهوية المثالية طوال اليوم. الطبعة احترافية للغاية ومقاومة تماماً للتشقق أو البهتان حتى بعد مئات الغسلات. متوفر الآن بجميع المقاسات ليلائم ذوقك الرفيع.",
+      "metaDescription": "تيشرت ALGERIA الجديد بتصميم الرجل التارقي والصحراء مستوحى من 2.png. قطن 100% عالي الجودة وبقصة عادية مريحة (وليس أوفر سايز). اطلبه الآن مع شحن سريع لـ 58 ولاية.",
+      "price": "1700",
+      "currency": "DZD",
+      "image": "images/41.webp",
+      "imageAlt": "تيشرت algeria الصحراء والرجل التارقي ستريت وير شبابي جزائري فاخر قصة عادية",
+      "keywords": "تيشرت algeria, تيشيرت الجزائر, algeria t-shirt dz, ملابس ستريت وير الجزائر, قميص جزائري, تيشيرت الصحراء الجزائرية, قميص التارقي, تيشيرت قطن فاخر, ملابس شبابية الجزائر, تيشيرت صيفي قاوي, ماركات ملابس جزائرية, تيشيرت قصة عادية, regular fit t-shirt algeria, قمصان كاجوال الجزائر, توصيل 58 ولاية, لباس عصري جزائري, ترند الجزائر",
+      "features": [
+        "مصنوع من القطن الطبيعي 100% الثقيل والفاخر لراحة واستدامة مثالية",
+        "طبعة الرجل التارقي والرموز الوطنية المستوحاة من 2.png عالية الدقة ولا تتأثر بالغسيل المتكرر",
+        "قصة عصرية تواكب آخر صيحات الموضة الشبابية",
+        "نسيج متين وألوان ثابتة تحافظ على رونقها وفخامتها لفترة طويلة",
+        "مثالي للخرجات اليومية، الجامعة، والتجمعات الشبابية الأنيقة وعشاق أصالة الصحراء",
+        "خياطة مزدوجة وتقفيل احترافي يضمن جودة تفوق السعر",
+        "شحن سريع وموثوق متوفر لجميع الولايات الجزائرية الـ 58"
+      ],
+      "category": "tshirts",
+      "tabDescription": "تيشرت ALGERIA الصحراء والتارقي بجودة ممتازة. يجمع بين فخامة التصميم الغرافيكي الممثل لأصالة الجنوب ونقاء النسيج القطني الفاخر ليمثل ستايل الشارع المعاصر في الجزائر بامتياز.",
+      "backImage": "images/15.webp",
+      "image1": "",
+      "image2": "",
+      "image3": "",
+      "image4": "",
+      "image5": "",
+      "image6": "",
+      "image7": "",
+      "image8": "",
+      "image9": "",
+      "image10": "",
+      "image11": "",
+      "image12": "",
+      "image13": "",
+      "image14": "",
+      "image15": "",
+      "inStock": true,
+      "youtubeVideoId": "",
+      "reviews": [
+        {
+          "name": "سفيان",
+          "rating": 5,
+          "comment": "الديزاين سامبل وبزاف كلاص، والكتيبة جاية نقية. القطن تاعهوم واش نحكي لك خشين وطوب."
+        },
+        {
+          "name": "شفيق",
+          "rating": 5,
+          "comment": "يعطيكم الصحة خاوتي، خياطة متقونة وفصالة أوفرسايز هبال. التوصيل جاني رابيد للبليدة."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "S",
+          "available": true
+        },
+        {
+          "name": "M",
+          "available": true
+        },
+        {
+          "name": "L",
+          "available": true
+        },
+        {
+          "name": "XL",
+          "available": true
+        }
+      ],
+      "colors": [
+        {
+          "name": "bleu nuit",
+          "hex": "#191970",
+          "available": true
+        },
+        {
+          "name": "أسود",
+          "hex": "#000000",
+          "available": false
+        }
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 3
     },
     {
       "id": "t-shirt-one-piece-luffy",
@@ -162,7 +332,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2800",
+      "stockQuantity": 4
     },
 {
       "id": "t-shirt-anime-legends",
@@ -244,7 +416,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2600",
+      "stockQuantity": 3
     },
     {
       "id": "t-shirt-alpha-wolf-premium",
@@ -326,7 +500,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2900",
+      "stockQuantity": 5
     },
     
     {
@@ -350,13 +526,13 @@
       ],
       "category": "tshirts",
       "tabDescription": "تيشرت GHOST OPERATOR بجودة ممتازة. يجمع بين فخامة التصميم الغرافيكي لشخصية غوست ونقاء النسيج القطني الفاخر ليمثل ستايل الشارع المتميز في الجزائر.",
-      "backImage": "images/20.webp",
+      "backImage": "images/26.webp",
       "image1": "images/21.webp",
-      "image2": "",
-      "image3": "",
-      "image4": "",
-      "image5": "",
-      "image6": "",
+      "image2": "images/40.webp",
+      "image3": "images/39.webp",
+      "image4": "images/38.webp",
+      "image5": "images/37.webp",
+      "image6": "images/36.webp",
       "image7": "",
       "image8": "",
       "image9": "",
@@ -409,7 +585,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "3500",
+      "stockQuantity": 2
     },
     {
       "id": "t-shirt-free-palestine",
@@ -491,8 +669,10 @@
           "hex": "#000000",
           "available": false
         }
-      ]
-    }, 
+      ],
+      "originalPrice": "2400",
+      "stockQuantity": 2
+    },
 {
       "id": "t-shirt-palm-angels-oversized",
       "title": "تيشرت Palm Angels الفاخر - ستايل ستريت وير عالمي في الجزائر",
@@ -573,8 +753,10 @@
           "hex": "#000000",
           "available": false
         }
-      ]
-    },  
+      ],
+      "originalPrice": "3800",
+      "stockQuantity": 7
+    },
 {
       "id": "t-shirt-normal-dz",
       "title": "تيشرت NORMAL DZ الفاخر - ستريت وير جزائري",
@@ -660,7 +842,9 @@
           "rating": 5,
           "comment": "جاني قيس قيس (Oversized top) والتوصيل كان سريع، يعطيكم الصحة."
         }
-      ]
+      ],
+      "originalPrice": "2200",
+      "stockQuantity": 8
     },
     {
       "id": "t-shirt-mode-avion",
@@ -742,7 +926,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2100",
+      "stockQuantity": 3
     },
     {
       "id": "t-shirt-makanch-confiance",
@@ -824,7 +1010,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+     ],
+      "originalPrice": "2100",
+      "stockQuantity": 4
     },
     {
       "id": "t-shirt-nike-premium",
@@ -906,7 +1094,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2400",
+      "stockQuantity": 5
     },
     {
       "id": "t-shirt-yamaha-r1-premium",
@@ -988,7 +1178,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 7
     },
     {
       "id": "t-shirt-kawasaki-ninja-zx10r-premium",
@@ -1070,7 +1262,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 3
     },
     {
       "id": "t-shirt-suzuki-gsxr-1000-premium",
@@ -1152,7 +1346,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 2
     },
     {
       "id": "t-shirt-seat-ibiza-fr-premium",
@@ -1234,7 +1430,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 4
     },
     {
       "id": "t-shirt-golf-7-gti-premium",
@@ -1316,7 +1514,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 2
     },
     {
       "id": "t-shirt-renault-clio-4-premium",
@@ -1398,7 +1598,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 3
     },
     {
       "id": "t-shirt-fennec-algeria-national-team",
@@ -1480,7 +1682,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 6
     },
     {
       "id": "t-shirt-algeria-fennec-minimalist-style",
@@ -1562,7 +1766,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 7
     },
     {
       "id": "t-shirt-algeria-fennec-bold-graphic-style",
@@ -1644,7 +1850,9 @@
           "hex": "#000000",
           "available": false
         }
-      ]
+      ],
+      "originalPrice": "2500",
+      "stockQuantity": 7
     }
   ]
 }
