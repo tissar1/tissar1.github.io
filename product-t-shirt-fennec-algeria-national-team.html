@@ -41,6 +41,93 @@
   }
   </script>
 
+  <!-- ====== Tissar Dynamic Pixel Loader ====== -->
+  <script>
+  /**
+   * الحل: نجلب config.json بـ XMLHttpRequest المتزامن (sync)
+   * حتى يرى Meta Pixel Helper البيكسل فوراً عند تحميل الصفحة.
+   * XHR sync مسموح به في <head> قبل DOMContentLoaded.
+   */
+  (function() {
+    if (window.__tissarPixelLoaded) return;
+    window.__tissarPixelLoaded = true;
+
+    try {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://Tissar1.github.io/config.json?t=' + Date.now(), false); // false = synchronous
+      xhr.send(null);
+
+      if (xhr.status !== 200) return;
+
+      var cfg = JSON.parse(xhr.responseText);
+      var pixel = cfg && cfg.pixel;
+      if (!pixel || !pixel.enabled) return;
+
+      // ===== Meta Pixel =====
+      if (pixel.type === 'meta') {
+        var metaId = pixel.meta && pixel.meta.id;
+        if (!metaId) return;
+
+        // stub fbq قبل تحميل المكتبة — هذا ما يراه Pixel Helper
+        if (!window.fbq) {
+          var fbq = window.fbq = function() {
+            fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
+          };
+          if (!window._fbq) window._fbq = fbq;
+          fbq.push = fbq;
+          fbq.loaded = true;
+          fbq.version = '2.0';
+          fbq.queue = [];
+        }
+
+        window.fbq('init', metaId);
+        window.fbq('track', 'PageView');
+
+        // تحميل مكتبة fbevents.js بشكل async بعد التهيئة
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(s);
+
+      // ===== TikTok Pixel =====
+      } else if (pixel.type === 'tiktok') {
+        var ttId = pixel.tiktok && pixel.tiktok.id;
+        if (!ttId) return;
+
+        if (!window.ttq) {
+          window.TiktokAnalyticsObject = 'ttq';
+          var ttq = window.ttq = window.ttq || [];
+          ttq.methods = ['page','track','identify','instances','debug','on','off','once','ready','alias','group','enableCookie','disableCookie'];
+          ttq.setAndDefer = function(t, e) { t[e] = function() { t.push([e].concat(Array.prototype.slice.call(arguments, 0))); }; };
+          for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+          ttq.instance = function(t) {
+            for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]);
+            return e;
+          };
+          ttq.load = function(e, n) {
+            var src = 'https://analytics.tiktok.com/i18n/pixel/events.js';
+            ttq._i = ttq._i || {}; ttq._i[e] = []; ttq._i[e]._u = src;
+            ttq._t = ttq._t || {}; ttq._t[e] = +new Date();
+            ttq._o = ttq._o || {}; ttq._o[e] = n || {};
+            var sc = document.createElement('script');
+            sc.type = 'text/javascript'; sc.async = true;
+            sc.src = src + '?sdkid=' + e + '&lib=ttq';
+            var a = document.getElementsByTagName('script')[0];
+            a.parentNode.insertBefore(sc, a);
+          };
+        }
+
+        window.ttq.load(ttId);
+        window.ttq.page();
+      }
+
+    } catch(e) {
+      console.warn('[Tissar Pixel] خطأ في تحميل البيكسل:', e.message);
+    }
+  })();
+  </script>
+  <!-- ====== نهاية Tissar Dynamic Pixel Loader ====== -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
@@ -410,6 +497,54 @@
       font-size: 16px;
       font-weight: 600;
       color: var(--gray-600);
+    }
+    .price-original {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-decoration: line-through;
+      align-self: center;
+    }
+    .price-discount-badge {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #dc3545, #ff6b6b);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 50px;
+      align-self: center;
+      letter-spacing: 0.3px;
+    }
+    .stock-warning {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(255,193,7,0.08));
+      border: 1px solid rgba(255,107,53,0.3);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c84b00;
+    }
+    .stock-warning i { font-size: 18px; color: #e05a3a; flex-shrink: 0; }
+    .stock-warning-text strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .stock-warning-text span { font-size: 12px; color: #a04000; font-weight: 500; }
+    .stock-bar-track {
+      flex: 1;
+      height: 6px;
+      background: #f0ece8;
+      border-radius: 3px;
+      overflow: hidden;
+      min-width: 80px;
+    }
+    .stock-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #e05a3a, #ffc107);
     }
 
     .stock-pill {
@@ -1312,7 +1447,24 @@
         <div class="price-row">
           <span class="price-main">1900</span>
           <span class="price-currency">دينار جزائري</span>
+          
+          <span class="price-original">2500 دج</span>
+          <span class="price-discount-badge">-24%</span>
+          
         </div>
+
+        
+        <div class="stock-warning">
+          <i class="fas fa-fire"></i>
+          <div class="stock-warning-text">
+            <strong>تبقى 6 قطعة فقط!</strong>
+            <span>احجز الآن قبل نفاد الكمية</span>
+          </div>
+          <div class="stock-bar-track">
+            <div class="stock-bar-fill" style="width:30%"></div>
+          </div>
+        </div>
+        
 
         <div class="stock-pill">
           <i class="fas fa-check-circle"></i> 
@@ -1572,7 +1724,10 @@
             </div>
             <div class="product-card-info">
               <h3 class="product-card-title">تيشرت ALGERIA التيبوغرافي الفاخر - ستايل ستريت وير معاصر</h3>
-              <div class="product-card-price">2200 دج</div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <div class="product-card-price">1700 دج</div>
+                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
+              </div>
             </div>
           </div>
           <div class="product-card" onclick="window.location.href='product-t-shirt-algeria-fennec-minimalist-style.html'">
@@ -1582,7 +1737,10 @@
             </div>
             <div class="product-card-info">
               <h3 class="product-card-title">تيشرت ALGERIA المينيماليست - ستايل الفنك المعاصر</h3>
-              <div class="product-card-price">1900 دج</div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <div class="product-card-price">1900 دج</div>
+                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
+              </div>
             </div>
           </div>
           <div class="product-card" onclick="window.location.href='product-t-shirt-algeria-fennec-bold-graphic-style.html'">
@@ -1592,7 +1750,10 @@
             </div>
             <div class="product-card-info">
               <h3 class="product-card-title">تيشرت ALGERIA الغرافيك - ستايل الفنك الجريء والمبتكر</h3>
-              <div class="product-card-price">1900 دج</div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <div class="product-card-price">1900 دج</div>
+                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
+              </div>
             </div>
           </div>
           <div class="product-card" onclick="window.location.href='product-t-shirt-one-piece-luffy.html'">
@@ -1602,7 +1763,10 @@
             </div>
             <div class="product-card-info">
               <h3 class="product-card-title">تيشرت مونكي دي لوفي الفاخر - ستايل ستريت وير لعشاق ون بيس</h3>
-              <div class="product-card-price">2000 دج</div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <div class="product-card-price">2000 دج</div>
+                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2800 دج</span>
+              </div>
             </div>
           </div>
     </div>
@@ -2161,6 +2325,112 @@
   .review-comment { margin: 0; color: #6c757d; line-height: 1.5; }
   .reviews-summary { margin-top: 15px; text-align: center; font-weight: 500; color: #c9a84c; }
   .no-reviews { text-align: center; padding: 30px; color: #6c757d; }
+
+  /* ============================================
+     إصلاحات الأداء على الموبايل - تحسين الزوم
+  ============================================ */
+
+  /* 1. السماح بالزوم الطبيعي على الصور والعناصر */
+  img {
+    touch-action: pan-x pan-y pinch-zoom;
+  }
+  .main-image-wrap {
+    touch-action: pan-x pan-y pinch-zoom;
+  }
+
+  /* 2. تعطيل الـ hover animations على الموبايل لأنها تسبب تشنج أثناء الزوم */
+  @media (hover: none) and (pointer: coarse) {
+    /* إلغاء كل transform عند hover على اللمس */
+    .product-card:hover,
+    .shipping-card:hover,
+    .trust-item:hover,
+    .review-card:hover,
+    .btn-whatsapp:hover,
+    .order-product-btn:hover,
+    .submit-order-btn:hover,
+    .whatsapp-float:hover,
+    #scroll-top:hover,
+    .thumb:hover,
+    .nav-btn:hover,
+    .tab-btn:not(.active):hover,
+    .size-btn:hover,
+    .color-btn:hover,
+    .btn-ghost:hover,
+    .fav-btn:hover,
+    .footer-links li a:hover {
+      transform: none !important;
+      box-shadow: inherit !important;
+    }
+
+    /* إلغاء backdrop-filter على الهيدر لأنه يُرهق GPU الموبايل */
+    header {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(255,255,255,0.98) !important;
+    }
+
+    /* إيقاف hover على الصورة الرئيسية */
+    .main-image-wrap:hover img {
+      transform: none !important;
+    }
+
+    /* الأنيميشن على الهيدر الإعلاني - تبسيطه */
+    .announcement-bar {
+      animation: none !important;
+      background: var(--gold-dark) !important;
+    }
+
+    /* تبسيط الـ whatsapp pulse على موبايل */
+    .whatsapp-float {
+      animation: none !important;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4) !important;
+    }
+  }
+
+  /* 3. تفعيل GPU acceleration فقط على العناصر الضرورية */
+  .product-hero,
+  .tabs-section,
+  .related-products {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  /* 4. تحسين scroll على الموبايل */
+  @media (max-width: 768px) {
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* تقليل تعقيد الـ box-shadow على الموبايل */
+    .product-card,
+    .trust-item,
+    .review-card,
+    .specs-card,
+    .shipping-card {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+    }
+
+    /* إلغاء الـ noise texture في الـ body::before لأنه يُثقّل الرسم */
+    body::before {
+      display: none !important;
+    }
+
+    /* تبسيط gradients في الخلفية */
+    .product-hero::before {
+      display: none !important;
+    }
+
+    /* تحسين الصور على الموبايل */
+    .main-image-wrap img {
+      will-change: auto;
+    }
+
+    /* منع إعادة حساب layout أثناء الـ scroll والـ zoom */
+    .gallery-col,
+    .details-col {
+      contain: layout style;
+    }
+  }
 </style>
 
 <script>
@@ -2634,8 +2904,21 @@ async function saveOrderToGoogleSheets(orderData) {
       }
     });
     
-    // تحديث دوري لحالة المنتج
-    setInterval(updateProductStatus, 30000);
+    // تحديث دوري لحالة المنتج - مع إيقاف عند التبويب المخفي لتوفير أداء الموبايل
+    let statusInterval = null;
+    function startStatusPolling() {
+      if (!statusInterval) {
+        statusInterval = setInterval(updateProductStatus, 60000);
+      }
+    }
+    function stopStatusPolling() {
+      if (statusInterval) { clearInterval(statusInterval); statusInterval = null; }
+    }
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) { stopStatusPolling(); } 
+      else { updateProductStatus(); startStatusPolling(); }
+    });
+    startStatusPolling();
   });
   
   // دالة لحفظ الطلب في Google Sheets
