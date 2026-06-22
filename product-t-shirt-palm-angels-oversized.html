@@ -43,7 +43,7 @@
       "@type": "Offer",
       "url": "https://Tissar1.github.io/product-t-shirt-palm-angels-oversized.html",
       "priceCurrency": "DZD",
-      "price": "2500",
+      "price": "2300",
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/NewCondition"
     }
@@ -1460,7 +1460,7 @@
         </h1>
 
         <div class="price-row">
-          <span class="price-main">2500</span>
+          <span class="price-main">2300</span>
           <span class="price-currency">دينار جزائري</span>
           
           <span class="price-original">3800 دج</span>
@@ -1741,7 +1741,7 @@
               <h3 class="product-card-title">تيشرت ALGERIA التيبوغرافي الفاخر - ستايل ستريت وير معاصر</h3>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                 <div class="product-card-price">1700 دج</div>
-                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
+                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2300 دج</span>
               </div>
             </div>
           </div>
@@ -1754,7 +1754,7 @@
               <h3 class="product-card-title">تيشرت مقام الشهيد ALGERIA الفاخر - ستايل ستريت وير معاصر</h3>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                 <div class="product-card-price">1700 دج</div>
-                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
+                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2300 دج</span>
               </div>
             </div>
           </div>
@@ -1767,7 +1767,7 @@
               <h3 class="product-card-title">تيشرت الرجل التارقي ALGERIA الفاخر - ستايل ستريت وير معاصر</h3>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                 <div class="product-card-price">1700 دج</div>
-                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
+                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2300 دج</span>
               </div>
             </div>
           </div>
@@ -1863,7 +1863,7 @@
           <img src="images/17.webp" alt="تيشرت Palm Angels الفاخر - ستايل ستريت وير عالمي في الجزائر">
           <div>
             <h4 style="color: #212529;">تيشرت Palm Angels الفاخر - ستايل ستريت وير عالمي في الجزائر</h4>
-            <p class="order-price" style="color: #a07830;">السعر: 2500 دج</p>
+            <p class="order-price" style="color: #a07830;">السعر: 2300 دج</p>
             <div class="order-size-quantity">
               <p>الكمية: <span id="selectedQuantity">1</span></p>
               <p>القياس: <span id="selectedSizeDisplay">-</span></p>
@@ -1876,7 +1876,7 @@
       <form id="orderForm" class="order-form">
         <input type="hidden" id="productId" value="t-shirt-palm-angels-oversized">
         <input type="hidden" id="productTitle" value="تيشرت Palm Angels الفاخر - ستايل ستريت وير عالمي في الجزائر">
-        <input type="hidden" id="productPrice" value="2500">
+        <input type="hidden" id="productPrice" value="2300">
         <input type="hidden" id="selectedQuantityInput" name="quantity" value="1">
         <input type="hidden" id="selectedSizeInput" name="size" value="">
         <input type="hidden" id="selectedColorInput" name="color" value="">
@@ -1944,7 +1944,7 @@
         <div class="order-total">
           <div class="total-row">
             <span>سعر المنتج:</span>
-            <span id="productTotal">2500 دج</span>
+            <span id="productTotal">2300 دج</span>
           </div>
           <div class="total-row">
             <span>تكلفة التوصيل:</span>
@@ -1952,7 +1952,7 @@
           </div>
           <div class="total-row total">
             <span>المجموع الإجمالي:</span>
-            <span id="grandTotal">2500 دج + 1000 دج</span>
+            <span id="grandTotal">2300 دج + 1000 دج</span>
           </div>
         </div>
         
@@ -2697,7 +2697,7 @@ async function saveOrderToGoogleSheets(orderData) {
     // تحديث ملخص الطلب
     function updateOrderSummary() {
       const quantity = qty;
-      const price = parseFloat(document.getElementById('productPrice')?.value || 2500);
+      const price = parseFloat(document.getElementById('productPrice')?.value || 2300);
       const productTotal = price * quantity;
       
       if (selectedQuantitySpan) selectedQuantitySpan.textContent = quantity;
@@ -2710,7 +2710,7 @@ async function saveOrderToGoogleSheets(orderData) {
     
     // تحديث السعر الإجمالي
     function updateTotalPrice() {
-      const price = parseFloat(document.getElementById('productPrice')?.value || 2500);
+      const price = parseFloat(document.getElementById('productPrice')?.value || 2300);
       const productTotal = price * qty;
       const wilayaId = parseInt(wilayaSelect?.value);
       const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value === 'المنزل' ? 0 : 1;
@@ -2832,7 +2832,7 @@ async function saveOrderToGoogleSheets(orderData) {
         const formData = {
           productId: document.getElementById('productId')?.value || 't-shirt-palm-angels-oversized',
           productTitle: document.getElementById('productTitle')?.value || 'تيشرت Palm Angels الفاخر - ستايل ستريت وير عالمي في الجزائر',
-          productPrice: document.getElementById('productPrice')?.value || 2500,
+          productPrice: document.getElementById('productPrice')?.value || 2300,
           fullName: document.getElementById('fullName')?.value,
           phone: document.getElementById('phone')?.value,
           email: document.getElementById('email')?.value || 'غير محدد',
