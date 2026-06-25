@@ -803,6 +803,81 @@
     }
     .fav-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(224,90,58,0.1); }
 
+    /* ============================================
+       DELIVERY COMPANY BADGE
+    ============================================ */
+    .delivery-partner-strip {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%);
+      border: 1px solid #dde3f5;
+      border-radius: 16px;
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .delivery-partner-strip::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5));
+      pointer-events: none;
+    }
+    .delivery-partner-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+    }
+    .delivery-partner-icon i { color: white; font-size: 18px; }
+    .delivery-partner-info { flex: 1; }
+    .delivery-partner-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .delivery-partner-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e1b4b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .delivery-partner-name .verified-dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .delivery-partner-eta {
+      font-size: 12px;
+      color: #6366f1;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .delivery-partner-badge-right {
+      background: white;
+      border: 1px solid #e0e7ff;
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #4f46e5;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.1);
+    }
+
     /* Trust badges */
     .trust-grid {
       display: grid;
@@ -1526,6 +1601,24 @@
         </button>
         
 
+        <!-- Delivery Partner Badge -->
+        <div class="delivery-partner-strip">
+          <div class="delivery-partner-icon">
+            <i class="fas fa-truck-fast"></i>
+          </div>
+          <div class="delivery-partner-info">
+            <div class="delivery-partner-label">شركة التوصيل الرسمية</div>
+            <div class="delivery-partner-name">
+              <span class="verified-dot"></span>
+              World Express
+            </div>
+            <div class="delivery-partner-eta">📦 توصيل من 24 إلى 72 ساعة</div>
+          </div>
+          <div class="delivery-partner-badge-right">
+            <i class="fas fa-map-marker-alt"></i> 69 ولاية
+          </div>
+        </div>
+
         <!-- Actions -->
         <div class="action-row">
           <a href="https://wa.me/213555369459?text=مرحباً%20أريد%20الاستفسار%20عن%20منتج:%20" class="btn-whatsapp" target="_blank" rel="noopener">
@@ -1752,28 +1845,28 @@
               </div>
             </div>
           </div>
-          <div class="product-card" onclick="window.location.href='product-t-shirt-yamaha-r1-premium.html'">
+          <div class="product-card" onclick="window.location.href='product-t-shirt-mercedes-premium-regular.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
-              <img src="images/6.webp" alt="تيشرت yamaha r1 لعشاق الدراجات النارية الجزائر" loading="lazy">
+              <img src="images/48.webp" alt="تيشرت مرسيدس mercedes ستريت وير شبابي جزائري فاخر قصة عادية" loading="lazy">
             </div>
             <div class="product-card-info">
-              <h3 class="product-card-title">تيشرت Yamaha R1 الفاخر - لعشاق الدراجات النارية في الجزائر</h3>
+              <h3 class="product-card-title">تيشرت مرسيدس Mercedes الفاخر - ستايل ستريت وير كلاسيكي لعشاق السيارات</h3>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                <div class="product-card-price">1900 دج</div>
+                <div class="product-card-price">2000 دج</div>
                 <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
               </div>
             </div>
           </div>
-          <div class="product-card" onclick="window.location.href='product-t-shirt-kawasaki-ninja-zx10r-premium.html'">
+          <div class="product-card" onclick="window.location.href='product-t-shirt-bmw-premium-regular.html'">
             <div class="product-card-img">
               <span class="stock-badge in-stock">متوفر</span>
-              <img src="images/5.webp" alt="تيشرت kawasaki ninja zx10r لعشاق الدراجات النارية الجزائر" loading="lazy">
+              <img src="images/50.webp" alt="تيشرت بي ام دبليو bmw ستريت وير شبابي جزائري فاخر قصة عادية" loading="lazy">
             </div>
             <div class="product-card-info">
-              <h3 class="product-card-title">تيشرت Kawasaki Ninja ZX10R الفاخر - لعشاق الموتو في الجزائر</h3>
+              <h3 class="product-card-title">تيشرت بي إم دبليو BMW الفاخر - ستايل ستريت وير كلاسيكي لعشاق السيارات</h3>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                <div class="product-card-price">1900 دج</div>
+                <div class="product-card-price">2000 دج</div>
                 <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
               </div>
             </div>
@@ -2505,7 +2598,7 @@ async function saveOrderToGoogleSheets(orderData) {
   
   // دالة للحصول على سعر التوصيل
   function getDeliveryPrice(wilayaId, deliveryType) {
-    const deliveryPrices = {"1":[1200,800],"2":[1000,700],"3":[1100,750],"4":[1000,700],"5":[1000,700],"6":[900,600],"7":[1000,700],"8":[1500,1200],"9":[800,500],"10":[900,600],"11":[1800,1500],"12":[1200,900],"13":[1100,800],"14":[1000,700],"15":[900,600],"16":[700,400],"17":[1100,800],"18":[1000,700],"19":[1000,700],"20":[1100,800],"21":[1000,700],"22":[1100,800],"23":[1000,700],"24":[1000,700],"25":[1000,700],"26":[900,600],"27":[1000,700],"28":[1100,800],"29":[1000,700],"30":[1300,1000],"31":[900,600],"32":[1200,900],"33":[1600,1300],"34":[900,600],"35":[800,500],"36":[1100,800],"37":[2000,1700],"38":[1000,700],"39":[1200,900],"40":[1300,1000],"41":[1100,800],"42":[800,500],"43":[1000,700],"44":[900,600],"45":[1400,1100],"46":[1100,800],"47":[1300,1000],"48":[1000,700],"49":[1500,1200],"50":[1800,1500],"51":[1200,900],"52":[1600,1300],"53":[1700,1400],"54":[1900,1600],"55":[1300,1000],"56":[2000,1700],"57":[1300,1000],"58":[1600,1300],"59":[1100,800],"60":[1000,700],"61":[1200,900],"62":[1200,900],"63":[1100,800],"64":[1000,700],"65":[1100,800],"66":[1100,800],"67":[900,600],"68":[1100,800],"69":[1400,1100],"default":[1000,700]};
+    const deliveryPrices = {"1":[1400,1100],"2":[850,450],"3":[1000,700],"4":[500,400],"5":[850,450],"6":[850,500],"7":[950,600],"8":[1400,1100],"9":[850,450],"10":[850,450],"11":[1800,1400],"12":[950,600],"13":[850,500],"14":[850,500],"15":[850,450],"16":[850,450],"17":[900,600],"18":[850,500],"19":[850,450],"20":[900,600],"21":[850,500],"22":[850,500],"23":[850,500],"24":[900,600],"25":[850,500],"26":[850,450],"27":[850,500],"28":[850,500],"29":[900,600],"30":[1100,800],"31":[850,450],"32":[1100,800],"33":[2000,1700],"34":[850,450],"35":[850,450],"36":[950,600],"37":[1800,1400],"38":[850,500],"39":[1100,800],"40":[900,600],"41":[900,600],"42":[850,450],"43":[850,500],"44":[850,450],"45":[1100,800],"46":[900,600],"47":[1100,800],"48":[850,500],"49":[1400,1100],"50":[2000,1700],"51":[1000,700],"52":[1400,1100],"53":[1400,1100],"54":[2000,1700],"55":[1100,800],"56":[2000,1700],"57":[1100,800],"58":[1300,1000],"59":[1100,800],"60":[1000,700],"61":[1200,900],"62":[1200,900],"63":[1100,800],"64":[1000,700],"65":[1100,800],"66":[1100,800],"67":[900,600],"68":[1100,800],"69":[1400,1100],"default":[1000,700]};
     const prices = deliveryPrices[wilayaId] || deliveryPrices.default;
     return deliveryType === 0 ? prices[0] : prices[1];
   }
