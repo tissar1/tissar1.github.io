@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nichify — Amazon Research + Trend Hunter</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<style>
+  :root{
+    --brand-orange:#e95e2e; --brand-blue:#667eea; --brand-purple:#764ba2;
+    --ink:#0f172a; --muted:#64748b; --bg:#f5f7fc; --card:#ffffff; --border:#eef2f8;
+    --green:#16a34a; --green-bg:#e8f9ee; --yellow:#b45309; --yellow-bg:#fef3c7; --red:#dc2626; --red-bg:#fee2e2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Tajawal','Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding:20px 14px 60px;}
+  .container{max-width:1200px;margin:0 auto;}
+  header.app-header{text-align:center;margin-bottom:22px;}
+  header.app-header h1{font-size:clamp(1.4rem,4vw,2.1rem);background:linear-gradient(135deg,#0f2b3d,#1e4a76);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800;}
+  header.app-header p{color:var(--muted);margin-top:6px;font-size:0.95rem;}
+
+  .tabs{display:flex;justify-content:center;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+  .tab-btn{background:#fff;border:2px solid var(--border);color:var(--muted);padding:12px 22px;border-radius:40px;font-weight:700;font-size:0.95rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.2s;font-family:inherit;}
+  .tab-btn.active{border-color:var(--brand-blue);color:var(--brand-blue);background:#eef2ff;box-shadow:0 4px 14px rgba(102,126,234,.18);}
+  .tab-btn.trend.active{border-color:var(--brand-orange);color:var(--brand-orange);background:#fff5eb;box-shadow:0 4px 14px rgba(233,94,46,.18);}
+
+  .panel{display:none;}
+  .panel.active{display:block;animation:fadeIn .25s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.04);margin-bottom:20px;}
+  .card h2{font-size:1.05rem;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .card h2 i{color:var(--brand-blue);}
+  .card.trend h2 i{color:var(--brand-orange);}
+
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:560px){.row{grid-template-columns:1fr;}}
+  .field label{display:block;font-size:.72rem;font-weight:700;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+  .field select, .field input{width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:14px;font-size:.95rem;font-family:inherit;background:#f8fafc;outline:none;transition:.2s;}
+  .field select:focus, .field input:focus{border-color:var(--brand-blue);box-shadow:0 0 0 3px rgba(102,126,234,.12);}
+
+  .btn{border:none;border-radius:14px;padding:14px 18px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s;}
+  .btn-primary{background:linear-gradient(135deg,var(--brand-blue) 0%,var(--brand-purple) 100%);color:#fff;width:100%;margin-top:18px;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(102,126,234,.35);}
+  .btn-trend{background:linear-gradient(135deg,#e95e2e 0%,#f2994a 100%);color:#fff;}
+  .btn-trend:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(233,94,46,.35);}
+  .btn-outline{background:#f1f5f9;color:#334155;border:1px solid #cbd5e1;}
+
+  .hint{font-size:.78rem;color:var(--muted);margin-top:10px;background:#f8fafc;padding:8px 12px;border-radius:10px;}
+
+  /* ---- data loader ---- */
+  .drop{border:2px dashed #cbd5e1;border-radius:16px;padding:22px;text-align:center;color:var(--muted);cursor:pointer;transition:.2s;background:#fafcff;}
+  .drop:hover{border-color:var(--brand-blue);background:#eef2ff;}
+  .drop input{display:none;}
+  .data-status{margin-top:12px;font-size:.85rem;font-weight:600;color:var(--green);display:none;}
+  .data-status.show{display:block;}
+
+  /* ---- trend hunter table ---- */
+  .trend-table-wrap{overflow-x:auto;}
+  table.trend-table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:640px;}
+  table.trend-table th{text-align:right;padding:10px 12px;color:#475569;font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--border);}
+  table.trend-table td{padding:12px;border-bottom:1px solid var(--border);vertical-align:top;}
+  table.trend-table tr:hover td{background:#fafcff;}
+  .trend-name{font-weight:800;}
+  .status-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:30px;font-weight:700;font-size:.75rem;white-space:nowrap;}
+  .status-opportunity{background:var(--green-bg);color:var(--green);}
+  .status-medium{background:var(--yellow-bg);color:var(--yellow);}
+  .status-saturated{background:var(--red-bg);color:var(--red);}
+  .kw-list{display:flex;flex-wrap:wrap;gap:6px;max-width:340px;}
+  .kw-badge{background:#e0f2fe;color:#0369a1;padding:4px 10px;border-radius:30px;font-size:.72rem;font-weight:600;white-space:nowrap;cursor:pointer;}
+  .kw-badge:hover{background:#bae6fd;}
+  .trend-source-tag{font-size:.68rem;color:#94a3b8;margin-inline-start:6px;font-weight:500;}
+
+  .empty-state{text-align:center;padding:40px 16px;color:var(--muted);}
+  .loading-inline{display:inline-flex;align-items:center;gap:8px;color:var(--muted);}
+  .spinner{width:16px;height:16px;border:3px solid #e2e8f0;border-top-color:var(--brand-orange);border-radius:50%;animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .manual-add{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+  .manual-add input{flex:1;min-width:180px;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:40px;font-family:inherit;}
+  .manual-add button{padding:10px 18px;border-radius:40px;}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:12px 22px;border-radius:40px;font-weight:600;font-size:.85rem;box-shadow:0 6px 22px rgba(0,0,0,.25);z-index:999;opacity:0;pointer-events:none;transition:.25s;}
+  .toast.show{opacity:1;transform:translate(-50%,-6px);}
+
+  footer{text-align:center;margin-top:30px;font-size:.72rem;color:#94a3b8;}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="app-header">
+    <h1><i class="fas fa-chart-simple"></i> Nichify</h1>
+    <p>Amazon Research السليم + أداة 🔥 Trend Hunter لصيد الفرص قبل ما تتشبع</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="research" id="tabResearchBtn"><i class="fas fa-search-dollar"></i> Amazon Research</button>
+    <button class="tab-btn trend" data-tab="trend" id="tabTrendBtn"><i class="fas fa-fire-flame-curved"></i> Trend Hunter</button>
+    <button class="tab-btn" data-tab="data" id="tabDataBtn"><i class="fas fa-database"></i> بيانات المنتجات</button>
+  </div>
+
+  <!-- ============= RESEARCH PANEL ============= -->
+  <section class="panel active" id="panel-research">
+    <div class="card">
+      <h2><i class="fas fa-search-dollar"></i> Amazon Research</h2>
+      <div class="row">
+        <div class="field">
+          <label><i class="fas fa-globe"></i> Marketplace</label>
+          <select id="researchLocale">
+            <option value="com">🇺🇸 United States (amazon.com)</option>
+            <option value="couk">🇬🇧 United Kingdom (amazon.co.uk)</option>
+            <option value="de">🇩🇪 Germany (amazon.de)</option>
+            <option value="ca">🇨🇦 Canada (amazon.ca)</option>
+            <option value="fr">🇫🇷 France (amazon.fr)</option>
+            <option value="it">🇮🇹 Italy (amazon.it)</option>
+            <option value="es">🇪🇸 Spain (amazon.es)</option>
+            <option value="co.jp" data-tld="co.jp">🇯🇵 Japan (amazon.co.jp)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><i class="fas fa-tshirt"></i> Product Type</label>
+          <select id="researchCategory">
+            <option value="t-shirt">T-Shirt</option>
+            <option value="long sleeve t-shirt">Long Sleeve</option>
+            <option value="sweatshirt">Sweatshirt</option>
+            <option value="hoodie">Hoodie</option>
+            <option value="v-neck t-shirt">V-Neck</option>
+            <option value="raglan shirt">Raglan</option>
+            <option value="tank top">Tank Top</option>
+            <option value="popsocket">PopSocket</option>
+            <option value="phone case">Phone Case</option>
+            <option value="throw pillow">Throw Pillow</option>
+            <option value="tote bag">Tote Bag</option>
+            <option value="">— بدون نوع منتج (كلمة فقط) —</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" style="margin-top:16px;">
+        <label><i class="fas fa-keyboard"></i> Keyword or Search Term</label>
+        <input type="text" id="researchKeyword" placeholder="e.g. funny cat, hiking, motivational nurse..." autocomplete="off">
+      </div>
+      <button class="btn btn-primary" id="researchSearchBtn"><i class="fas fa-external-link-alt"></i> Search Amazon</button>
+      <div class="hint" id="researchPreview"><i class="fas fa-link"></i> الرابط سيظهر هنا قبل الفتح</div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-clock-rotate-left"></i> عمليات بحث سريعة</h2>
+      <div id="quickHistory" class="kw-list"><span style="color:#94a3b8;font-size:.85rem;">لا يوجد بحث سابق بعد</span></div>
+    </div>
+  </section>
+
+  <!-- ============= TREND HUNTER PANEL ============= -->
+  <section class="panel" id="panel-trend">
+    <div class="card trend">
+      <h2><i class="fas fa-fire-flame-curved"></i> 🔥 Trend Hunter</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:14px;line-height:1.7;">
+        تجمع الأداة الترندات الحقيقية من <strong>Google Trends</strong> لحظةً بلحظة، ثم تقارنها تلقائياً بمنتجاتك المحمّلة في تبويب
+        «بيانات المنتجات» لتحسب عدد المنتجات المتعلقة، متوسط BSR، وحالة النيش (فرصة 🟢 / متوسط 🟡 / مشبع 🔴) — وتولّد لك
+        Long-tail Keywords حقيقية من عناوين منتجاتك الفعلية.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <select id="trendGeo" class="field" style="padding:10px 14px;border:2px solid #e2e8f0;border-radius:14px;font-family:inherit;background:#f8fafc;">
+          <option value="US">🇺🇸 United States</option>
+          <option value="GB">🇬🇧 United Kingdom</option>
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="AU">🇦🇺 Australia</option>
+        </select>
+        <button class="btn btn-trend" id="fetchTrendsBtn"><i class="fas fa-satellite-dish"></i> جلب الترندات الآن</button>
+        <span id="trendFetchStatus" class="loading-inline" style="display:none;"><span class="spinner"></span> جاري الجلب...</span>
+      </div>
+      <div class="manual-add">
+        <input type="text" id="manualTrendInput" placeholder="أو أضف ترند يدوياً (مثال: solar eclipse)">
+        <button class="btn btn-outline" id="manualTrendBtn"><i class="fas fa-plus"></i> إضافة</button>
+      </div>
+      <div class="hint" id="trendSourceHint" style="margin-top:14px;">
+        <i class="fas fa-circle-info"></i> يتم الجلب مباشرة من <code>trends.google.com/trending/rss</code> عبر بروكسي CORS عام كمرجع
+        مجاني بدون API Key. إذا فشل الاتصال من شبكتك، استخدم الإضافة اليدوية أعلاه.
+      </div>
+    </div>
+
+    <div class="card trend">
+      <h2><i class="fas fa-table"></i> نتائج التحليل</h2>
+      <div class="trend-table-wrap">
+        <table class="trend-table" id="trendTable">
+          <thead>
+            <tr>
+              <th>الترند</th>
+              <th>منتجات في داتاك</th>
+              <th>متوسط BSR</th>
+              <th>حالة النيش</th>
+              <th>Long-tail Keywords</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="trendTableBody">
+            <tr><td colspan="6"><div class="empty-state"><i class="fas fa-bolt" style="font-size:1.6rem;color:#e2e8f0;"></i><p style="margin-top:8px;">اضغط «جلب الترندات الآن» لبدء الصيد 🔎</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= DATA PANEL ============= -->
+  <section class="panel" id="panel-data">
+    <div class="card">
+      <h2><i class="fas fa-database"></i> بيانات منتجاتك (CSV من الـ Scraper)</h2>
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;">
+        ارفع نفس ملف CSV الذي يجلبه السكرابر (يحتاج أعمدة تقريبية: <code>title</code>, <code>bsr</code> أو <code>rank</code>, وبشكل اختياري
+        <code>asin</code>, <code>price</code>). هذه البيانات تُستخدم محلياً فقط في متصفحك لحساب تحليل Trend Hunter، ولا تُرسل لأي سيرفر.
+      </p>
+      <label class="drop" id="dropZone">
+        <input type="file" id="csvInput" accept=".csv">
+        <i class="fas fa-cloud-arrow-up" style="font-size:1.6rem;color:var(--brand-blue);"></i>
+        <p style="margin-top:8px;font-weight:600;">اسحب ملف CSV هنا أو اضغط للاختيار</p>
+      </label>
+      <div class="data-status" id="dataStatus"></div>
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button class="btn btn-outline" id="clearDataBtn"><i class="fas fa-trash"></i> مسح البيانات</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>Nichify — لا يخزّن أي بيانات على سيرفر خارجي، كل شيء يعمل محلياً داخل متصفحك.</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ================= TABS ================= */
+  const tabs = document.querySelectorAll(".tab-btn");
+  tabs.forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      tabs.forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+      document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+    });
+  });
+
+  function toast(msg){
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(()=>t.classList.remove("show"), 2400);
+  }
+
+  /* ================= AMAZON RESEARCH (fixed) ================= */
+  // Correct TLD map — this is what was broken before (bad domain / bad query building).
+  const TLD_MAP = { com:"com", couk:"co.uk", de:"de", ca:"ca", fr:"fr", it:"it", es:"es", "co.jp":"co.jp" };
+
+  function buildAmazonSearchUrl(){
+    const localeSel = document.getElementById("researchLocale");
+    const tld = TLD_MAP[localeSel.value] || "com";
+    const category = document.getElementById("researchCategory").value.trim();
+    const keywordRaw = document.getElementById("researchKeyword").value.trim();
+
+    if(!keywordRaw){
+      toast("اكتب كلمة بحث أولاً");
+      return null;
+    }
+
+    const query = category ? `${keywordRaw} ${category}` : keywordRaw;
+    const encoded = encodeURIComponent(query).replace(/%20/g, "+");
+    // i=fashion narrows to clothing/accessories on Amazon; falls back gracefully if not supported on a given marketplace.
+    const clothingTypes = new Set(["t-shirt","long sleeve t-shirt","sweatshirt","hoodie","v-neck t-shirt","raglan shirt","tank top","tote bag"]);
+    const dept = clothingTypes.has(category) ? "&i=fashion" : "";
+    return `https://www.amazon.${tld}/s?k=${encoded}${dept}`;
+  }
+
+  function refreshPreview(){
+    const url = buildAmazonSearchUrlSilent();
+    const el = document.getElementById("researchPreview");
+    el.innerHTML = url
+      ? `<i class="fas fa-link"></i> ${url}`
+      : `<i class="fas fa-link"></i> الرابط سيظهر هنا قبل الفتح`;
+  }
+  function buildAmazonSearchUrlSilent(){
+    const tld = TLD_MAP[document.getElementById("researchLocale").value] || "com";
+    const category = document.getElementById("researchCategory").value.trim();
+    const keywordRaw = document.getElementById("researchKeyword").value.trim();
+    if(!keywordRaw) return null;
+    const query = category ? `${keywordRaw} ${category}` : keywordRaw;
+    const encoded = encodeURIComponent(query).replace(/%20/g, "+");
+    const clothingTypes = new Set(["t-shirt","long sleeve t-shirt","sweatshirt","hoodie","v-neck t-shirt","raglan shirt","tank top","tote bag"]);
+    const dept = clothingTypes.has(category) ? "&i=fashion" : "";
+    return `https://www.amazon.${tld}/s?k=${encoded}${dept}`;
+  }
+
+  ["researchLocale","researchCategory","researchKeyword"].forEach(id=>{
+    document.getElementById(id).addEventListener("input", refreshPreview);
+    document.getElementById(id).addEventListener("change", refreshPreview);
+  });
+
+  let searchHistory = JSON.parse(localStorage.getItem("nichify_research_history")||"[]");
+  function renderHistory(){
+    const box = document.getElementById("quickHistory");
+    if(!searchHistory.length){
+      box.innerHTML = `<span style="color:#94a3b8;font-size:.85rem;">لا يوجد بحث سابق بعد</span>`;
+      return;
+    }
+    box.innerHTML = searchHistory.slice(0,12).map(h=>
+      `<span class="kw-badge" data-url="${h.url}">${h.label}</span>`
+    ).join("");
+    box.querySelectorAll(".kw-badge").forEach(b=>{
+      b.addEventListener("click", ()=> window.open(b.dataset.url, "_blank", "noopener"));
+    });
+  }
+  renderHistory();
+
+  document.getElementById("researchSearchBtn").addEventListener("click", ()=>{
+    const url = buildAmazonSearchUrl();
+    if(!url) return;
+    const kw = document.getElementById("researchKeyword").value.trim();
+    const cat = document.getElementById("researchCategory").selectedOptions[0].textContent;
+    searchHistory.unshift({ label: `${kw} · ${cat}`, url });
+    searchHistory = searchHistory.slice(0,20);
+    localStorage.setItem("nichify_research_history", JSON.stringify(searchHistory));
+    renderHistory();
+    window.open(url, "_blank", "noopener");
+  });
+
+  document.getElementById("researchKeyword").addEventListener("keydown", e=>{
+    if(e.key === "Enter") document.getElementById("researchSearchBtn").click();
+  });
+
+  refreshPreview();
+
+  /* ================= PRODUCT DATA (shared with Trend Hunter) ================= */
+  let PRODUCTS = [];
+  const STORAGE_KEY = "nichify_products_cache_v1";
+
+  function loadCachedProducts(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){ PRODUCTS = JSON.parse(raw); updateDataStatus(); }
+    }catch(e){ /* ignore corrupt cache */ }
+  }
+
+  function normalizeRow(row){
+    const keys = Object.keys(row).reduce((acc,k)=>{ acc[k.trim().toLowerCase()] = row[k]; return acc; }, {});
+    const title = keys.title || keys["product title"] || keys.name || "";
+    const bsrRaw = keys.bsr ?? keys.rank ?? keys["best sellers rank"] ?? keys["bsr rank"] ?? "";
+    const bsr = parseInt(String(bsrRaw).replace(/[^\d]/g,""), 10);
+    const asin = keys.asin || "";
+    const price = parseFloat(String(keys.price||"").replace(/[^\d.]/g,"")) || null;
+    if(!title) return null;
+    return { title: String(title).trim(), bsr: Number.isFinite(bsr) ? bsr : null, asin, price };
+  }
+
+  function updateDataStatus(){
+    const el = document.getElementById("dataStatus");
+    if(PRODUCTS.length){
+      el.textContent = `✅ تم تحميل ${PRODUCTS.length.toLocaleString()} منتج — جاهزة للاستخدام في Trend Hunter`;
+      el.classList.add("show");
+    } else {
+      el.classList.remove("show");
+    }
+  }
+
+  document.getElementById("csvInput").addEventListener("change", (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results)=>{
+        const rows = results.data.map(normalizeRow).filter(Boolean);
+        if(!rows.length){
+          toast("لم يتم العثور على صفوف صالحة في الملف — تحقّق من الأعمدة");
+          return;
+        }
+        PRODUCTS = rows;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(PRODUCTS));
+        updateDataStatus();
+        toast(`تم تحميل ${rows.length} منتج بنجاح`);
+      },
+      error: ()=> toast("تعذّرت قراءة ملف CSV")
+    });
+  });
+
+  document.getElementById("clearDataBtn").addEventListener("click", ()=>{
+    PRODUCTS = [];
+    localStorage.removeItem(STORAGE_KEY);
+    updateDataStatus();
+    toast("تم مسح البيانات");
+  });
+
+  loadCachedProducts();
+
+  /* ================= TREND HUNTER ================= */
+  const STOPWORDS = new Set(["the","a","an","and","or","for","of","to","in","on","with","is","are","this","that",
+    "your","you","my","our","by","at","it","new","gift","idea","design","print","cool","best","top"]);
+
+  function tokenize(title){
+    return String(title).toLowerCase()
+      .replace(/[^a-z0-9\s'-]/g," ")
+      .split(/\s+/)
+      .filter(w=> w.length>2 && !STOPWORDS.has(w));
+  }
+
+  // Global "successful" vocabulary: words weighted higher when they come from lower-BSR (better-selling) titles.
+  function buildGlobalVocabulary(products){
+    const freq = {};
+    products.forEach(p=>{
+      const weight = p.bsr ? Math.max(1, 3 - Math.floor(Math.log10(Math.max(p.bsr,1))/2)) : 1; // lower BSR -> higher weight
+      tokenize(p.title).forEach(w=>{ freq[w] = (freq[w]||0) + weight; });
+    });
+    return freq;
+  }
+
+  function matchProducts(trendWords, products){
+    return products.filter(p=>{
+      const titleLower = p.title.toLowerCase();
+      return trendWords.some(w=> titleLower.includes(w));
+    });
+  }
+
+  function classifyNiche(count){
+    if(count <= 5) return { key:"opportunity", label:"🟢 فرصة", cls:"status-opportunity" };
+    if(count <= 30) return { key:"medium", label:"🟡 متوسط", cls:"status-medium" };
+    return { key:"saturated", label:"🔴 مشبع", cls:"status-saturated" };
+  }
+
+  function generateLongtail(trendKeyword, matched, globalVocab){
+    // Prefer words from titles that actually matched this trend; fall back to global vocabulary.
+    let vocab = {};
+    if(matched.length){
+      matched.forEach(p=> tokenize(p.title).forEach(w=>{ vocab[w] = (vocab[w]||0)+1; }));
+    } else {
+      vocab = globalVocab;
+    }
+    const topWords = Object.entries(vocab)
+      .sort((a,b)=> b[1]-a[1])
+      .slice(0,8)
+      .map(([w])=>w)
+      .filter(w=> !trendKeyword.toLowerCase().includes(w));
+
+    const combos = [];
+    topWords.slice(0,6).forEach(w=>{
+      combos.push(`${trendKeyword} ${w}`);
+    });
+    // A couple of "word + trend" reversed combos read more naturally for gift-style phrases.
+    topWords.slice(0,2).forEach(w=>{
+      combos.push(`${w} ${trendKeyword} gift`);
+    });
+    return [...new Set(combos)].slice(0,8);
+  }
+
+  function avgBsr(list){
+    const withBsr = list.filter(p=> Number.isFinite(p.bsr));
+    if(!withBsr.length) return null;
+    const sum = withBsr.reduce((a,p)=> a+p.bsr, 0);
+    return Math.round(sum / withBsr.length);
+  }
+
+  async function fetchGoogleTrendsRSS(geo){
+    const target = `https://trends.google.com/trending/rss?geo=${encodeURIComponent(geo)}`;
+    const proxies = [
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
+      `https://corsproxy.io/?${encodeURIComponent(target)}`,
+      `https://r.jina.ai/${target}`
+    ];
+    let lastErr = null;
+    for(const proxyUrl of proxies){
+      try{
+        const res = await fetch(proxyUrl, { cache:"no-store" });
+        if(!res.ok) throw new Error("HTTP "+res.status);
+        const text = await res.text();
+        const titles = parseTrendTitles(text);
+        if(titles.length) return titles;
+        throw new Error("empty feed");
+      }catch(err){ lastErr = err; }
+    }
+    throw lastErr || new Error("all proxies failed");
+  }
+
+  function parseTrendTitles(xmlText){
+    try{
+      const doc = new DOMParser().parseFromString(xmlText, "text/xml");
+      const items = Array.from(doc.querySelectorAll("item > title"));
+      return items.map(n=> n.textContent.trim()).filter(Boolean);
+    }catch(e){ return []; }
+  }
+
+  let trendRows = [];
+
+  function renderTrendTable(){
+    const body = document.getElementById("trendTableBody");
+    if(!trendRows.length){
+      body.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="fas fa-bolt" style="font-size:1.6rem;color:#e2e8f0;"></i><p style="margin-top:8px;">اضغط «جلب الترندات الآن» لبدء الصيد 🔎</p></div></td></tr>`;
+      return;
+    }
+    body.innerHTML = trendRows.map(r=>{
+      const kwHtml = r.longtail.map(k=> `<span class="kw-badge" data-kw="${k}">${k}</span>`).join("") || "<span style='color:#94a3b8;'>—</span>";
+      return `<tr>
+        <td><span class="trend-name">${r.trend}</span><span class="trend-source-tag">${r.source}</span></td>
+        <td>${r.count}</td>
+        <td>${r.avgBsr !== null ? r.avgBsr.toLocaleString() : "—"}</td>
+        <td><span class="status-pill ${r.status.cls}">${r.status.label}</span></td>
+        <td><div class="kw-list">${kwHtml}</div></td>
+        <td><button class="btn btn-outline" style="padding:8px 12px;font-size:.75rem;" data-open="${r.trend}"><i class="fas fa-search"></i></button></td>
+      </tr>`;
+    }).join("");
+
+    body.querySelectorAll("[data-kw]").forEach(el=>{
+      el.addEventListener("click", ()=>{
+        navigator.clipboard?.writeText(el.dataset.kw).catch(()=>{});
+        toast(`تم نسخ: ${el.dataset.kw}`);
+      });
+    });
+    body.querySelectorAll("[data-open]").forEach(el=>{
+      el.addEventListener("click", ()=>{
+        const q = encodeURIComponent(el.dataset.open).replace(/%20/g,"+");
+        window.open(`https://www.amazon.com/s?k=${q}`, "_blank", "noopener");
+      });
+    });
+  }
+
+  function addTrend(trendTitle, source){
+    if(trendRows.some(r=> r.trend.toLowerCase() === trendTitle.toLowerCase())) return;
+    const words = tokenize(trendTitle);
+    if(!words.length) words.push(trendTitle.toLowerCase());
+    const matched = matchProducts(words, PRODUCTS);
+    const count = matched.length;
+    const status = classifyNiche(count);
+    const globalVocab = buildGlobalVocabulary(PRODUCTS);
+    const longtail = generateLongtail(trendTitle, matched, globalVocab);
+    trendRows.unshift({
+      trend: trendTitle,
+      count,
+      avgBsr: avgBsr(matched),
+      status,
+      longtail,
+      source
+    });
+    renderTrendTable();
+  }
+
+  document.getElementById("fetchTrendsBtn").addEventListener("click", async ()=>{
+    const geo = document.getElementById("trendGeo").value;
+    const statusEl = document.getElementById("trendFetchStatus");
+    statusEl.style.display = "inline-flex";
+    try{
+      const titles = await fetchGoogleTrendsRSS(geo);
+      titles.slice(0,20).forEach(t=> addTrend(t, "Google Trends"));
+      toast(`تم جلب ${titles.length} ترند حقيقي من Google Trends`);
+    }catch(err){
+      toast("تعذّر الاتصال بـ Google Trends من هذه الشبكة — أضف الترندات يدوياً بالأسفل");
+    }finally{
+      statusEl.style.display = "none";
+    }
+  });
+
+  document.getElementById("manualTrendBtn").addEventListener("click", ()=>{
+    const input = document.getElementById("manualTrendInput");
+    const val = input.value.trim();
+    if(!val){ toast("اكتب اسم ترند أولاً"); return; }
+    addTrend(val, "يدوي");
+    input.value = "";
+  });
+  document.getElementById("manualTrendInput").addEventListener("keydown", e=>{
+    if(e.key === "Enter") document.getElementById("manualTrendBtn").click();
+  });
+
+})();
+</script>
+</body>
+</html>
