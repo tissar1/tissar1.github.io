@@ -43,7 +43,7 @@
       "@type": "Offer",
       "url": "https://Tissar1.github.io/product-alexander-mcqueen-white-01.html",
       "priceCurrency": "DZD",
-      "price": "2800",
+      "price": "3400",
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/NewCondition"
     }
@@ -1543,10 +1543,10 @@
         </h1>
 
         <div class="price-row">
-          <span class="price-main">2800</span>
+          <span class="price-main">3400</span>
           <span class="price-currency">دينار جزائري</span>
           
-          <span class="price-original">3500 دج</span>
+          <span class="price-original">4200 دج</span>
           <span class="price-discount-badge">-20%</span>
           
         </div>
@@ -1926,7 +1926,7 @@
           <img src="images/54.webp" alt="Alexander McQueen Oversized Sneakers White">
           <div>
             <h4 style="color: #212529;">Alexander McQueen Oversized Sneakers White</h4>
-            <p class="order-price" style="color: #a07830;">السعر: 2800 دج</p>
+            <p class="order-price" style="color: #a07830;">السعر: 3400 دج</p>
             <div class="order-size-quantity">
               <p>الكمية: <span id="selectedQuantity">1</span></p>
               <p>القياس: <span id="selectedSizeDisplay">-</span></p>
@@ -1939,7 +1939,7 @@
       <form id="orderForm" class="order-form">
         <input type="hidden" id="productId" value="alexander-mcqueen-white-01">
         <input type="hidden" id="productTitle" value="Alexander McQueen Oversized Sneakers White">
-        <input type="hidden" id="productPrice" value="2800">
+        <input type="hidden" id="productPrice" value="3400">
         <input type="hidden" id="selectedQuantityInput" name="quantity" value="1">
         <input type="hidden" id="selectedSizeInput" name="size" value="">
         <input type="hidden" id="selectedColorInput" name="color" value="">
@@ -2007,7 +2007,7 @@
         <div class="order-total">
           <div class="total-row">
             <span>سعر المنتج:</span>
-            <span id="productTotal">2800 دج</span>
+            <span id="productTotal">3400 دج</span>
           </div>
           <div class="total-row">
             <span>تكلفة التوصيل:</span>
@@ -2015,7 +2015,7 @@
           </div>
           <div class="total-row total">
             <span>المجموع الإجمالي:</span>
-            <span id="grandTotal">2800 دج + 1000 دج</span>
+            <span id="grandTotal">3400 دج + 1000 دج</span>
           </div>
         </div>
         
@@ -2701,7 +2701,7 @@ async function saveOrderToGoogleSheets(orderData) {
     t.textContent = msg;
     t.classList.add('show');
     clearTimeout(t._t);
-    t._t = setTimeout(() => t.classList.remove('show'), 2800);
+    t._t = setTimeout(() => t.classList.remove('show'), 3400);
   }
   
   /* ---- Tabs ---- */
@@ -2760,7 +2760,7 @@ async function saveOrderToGoogleSheets(orderData) {
     // تحديث ملخص الطلب
     function updateOrderSummary() {
       const quantity = qty;
-      const price = parseFloat(document.getElementById('productPrice')?.value || 2800);
+      const price = parseFloat(document.getElementById('productPrice')?.value || 3400);
       const productTotal = price * quantity;
       
       if (selectedQuantitySpan) selectedQuantitySpan.textContent = quantity;
@@ -2773,7 +2773,7 @@ async function saveOrderToGoogleSheets(orderData) {
     
     // تحديث السعر الإجمالي
     function updateTotalPrice() {
-      const price = parseFloat(document.getElementById('productPrice')?.value || 2800);
+      const price = parseFloat(document.getElementById('productPrice')?.value || 3400);
       const productTotal = price * qty;
       const wilayaId = parseInt(wilayaSelect?.value);
       const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value === 'المنزل' ? 0 : 1;
@@ -2895,7 +2895,7 @@ async function saveOrderToGoogleSheets(orderData) {
         const formData = {
           productId: document.getElementById('productId')?.value || 'alexander-mcqueen-white-01',
           productTitle: document.getElementById('productTitle')?.value || 'Alexander McQueen Oversized Sneakers White',
-          productPrice: document.getElementById('productPrice')?.value || 2800,
+          productPrice: document.getElementById('productPrice')?.value || 3400,
           fullName: document.getElementById('fullName')?.value,
           phone: document.getElementById('phone')?.value,
           email: document.getElementById('email')?.value || 'غير محدد',
