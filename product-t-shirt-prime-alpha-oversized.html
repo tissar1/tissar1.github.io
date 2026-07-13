@@ -43,7 +43,7 @@
       "@type": "Offer",
       "url": "https://Tissar1.github.io/product-t-shirt-prime-alpha-oversized.html",
       "priceCurrency": "DZD",
-      "price": "2500",
+      "price": "2200",
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/NewCondition"
     }
@@ -1532,7 +1532,7 @@
         </h1>
 
         <div class="price-row">
-          <span class="price-main">2500</span>
+          <span class="price-main">2200</span>
           <span class="price-currency">دينار جزائري</span>
           
           <span class="price-original">3500 دج</span>
@@ -1830,7 +1830,7 @@
             <div class="product-card-info">
               <h3 class="product-card-title">تيشرت مرسيدس Mercedes الأسود الفاخر - ستايل ستريت وير أوفر سايز</h3>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                <div class="product-card-price">2500 دج</div>
+                <div class="product-card-price">2200 دج</div>
                 <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">3500 دج</span>
               </div>
             </div>
@@ -1856,7 +1856,7 @@
             <div class="product-card-info">
               <h3 class="product-card-title">تيشرت Palm Angels الفاخر - ستايل ستريت وير عالمي في الجزائر</h3>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                <div class="product-card-price">2500 دج</div>
+                <div class="product-card-price">2200 دج</div>
                 <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">3500 دج</span>
               </div>
             </div>
@@ -1870,7 +1870,7 @@
               <h3 class="product-card-title">تيشرت مرسيدس AMG الفاخر - ستايل ستريت وير كلاسيكي رياضي</h3>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                 <div class="product-card-price">1700 دج</div>
-                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2500 دج</span>
+                <span style="font-size:13px;color:#adb5bd;text-decoration:line-through;">2200 دج</span>
               </div>
             </div>
           </div>
@@ -1953,7 +1953,7 @@
           <img src="images/45.webp" alt="تيشرت Prime Alpha الفاخر - ستايل ستريت وير أوفر سايز">
           <div>
             <h4 style="color: #212529;">تيشرت Prime Alpha الفاخر - ستايل ستريت وير أوفر سايز</h4>
-            <p class="order-price" style="color: #a07830;">السعر: 2500 دج</p>
+            <p class="order-price" style="color: #a07830;">السعر: 2200 دج</p>
             <div class="order-size-quantity">
               <p>الكمية: <span id="selectedQuantity">1</span></p>
               <p>القياس: <span id="selectedSizeDisplay">-</span></p>
@@ -1966,7 +1966,7 @@
       <form id="orderForm" class="order-form">
         <input type="hidden" id="productId" value="t-shirt-prime-alpha-oversized">
         <input type="hidden" id="productTitle" value="تيشرت Prime Alpha الفاخر - ستايل ستريت وير أوفر سايز">
-        <input type="hidden" id="productPrice" value="2500">
+        <input type="hidden" id="productPrice" value="2200">
         <input type="hidden" id="selectedQuantityInput" name="quantity" value="1">
         <input type="hidden" id="selectedSizeInput" name="size" value="">
         <input type="hidden" id="selectedColorInput" name="color" value="">
@@ -2034,7 +2034,7 @@
         <div class="order-total">
           <div class="total-row">
             <span>سعر المنتج:</span>
-            <span id="productTotal">2500 دج</span>
+            <span id="productTotal">2200 دج</span>
           </div>
           <div class="total-row">
             <span>تكلفة التوصيل:</span>
@@ -2042,7 +2042,7 @@
           </div>
           <div class="total-row total">
             <span>المجموع الإجمالي:</span>
-            <span id="grandTotal">2500 دج + 1000 دج</span>
+            <span id="grandTotal">2200 دج + 1000 دج</span>
           </div>
         </div>
         
@@ -2787,7 +2787,7 @@ async function saveOrderToGoogleSheets(orderData) {
     // تحديث ملخص الطلب
     function updateOrderSummary() {
       const quantity = qty;
-      const price = parseFloat(document.getElementById('productPrice')?.value || 2500);
+      const price = parseFloat(document.getElementById('productPrice')?.value || 2200);
       const productTotal = price * quantity;
       
       if (selectedQuantitySpan) selectedQuantitySpan.textContent = quantity;
@@ -2800,7 +2800,7 @@ async function saveOrderToGoogleSheets(orderData) {
     
     // تحديث السعر الإجمالي
     function updateTotalPrice() {
-      const price = parseFloat(document.getElementById('productPrice')?.value || 2500);
+      const price = parseFloat(document.getElementById('productPrice')?.value || 2200);
       const productTotal = price * qty;
       const wilayaId = parseInt(wilayaSelect?.value);
       const deliveryType = document.querySelector('input[name="delivery"]:checked')?.value === 'المنزل' ? 0 : 1;
@@ -2922,7 +2922,7 @@ async function saveOrderToGoogleSheets(orderData) {
         const formData = {
           productId: document.getElementById('productId')?.value || 't-shirt-prime-alpha-oversized',
           productTitle: document.getElementById('productTitle')?.value || 'تيشرت Prime Alpha الفاخر - ستايل ستريت وير أوفر سايز',
-          productPrice: document.getElementById('productPrice')?.value || 2500,
+          productPrice: document.getElementById('productPrice')?.value || 2200,
           fullName: document.getElementById('fullName')?.value,
           phone: document.getElementById('phone')?.value,
           email: document.getElementById('email')?.value || 'غير محدد',
